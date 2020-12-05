@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">kotme-android</string>
+    <string name="legend">
+        Поиски древних сокровищ всегда интересовали авантюристов всех мастей, с тех самых пор,как эти сокровища укрывали - с глубокой древности. Путешественник отправляется на остров для поиска древнего клада. Помоги путешественнику расшифровать карту и найти сокровища. Двигайся по карте острова, решая задачи по Kotlin, ищи подсказки и доберись первым до сокровищ.
+    </string>
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome!"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="next">Далее</string>
+</resources>
