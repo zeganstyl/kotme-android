@@ -13,11 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".HiddenSettings"></activity>
-        <activity android:name=".ExerciseActivity" />
-        <activity android:name=".AchievementsActivity" />
-        <activity android:name=".LegendActivity" />
-        <activity android:name=".MapActivity" />
+        <activity android:name=".HiddenSettingsFragment"></activity>
+        <activity android:name=".ExerciseFragment" />
+        <activity android:name=".MapFragment" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

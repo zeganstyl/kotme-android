@@ -1,10 +1,10 @@
 package org.thelemistix.kotme
 
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
+import android.view.View
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import io.ktor.client.*
 import io.ktor.client.engine.android.*
 import io.ktor.client.request.*
@@ -13,13 +13,8 @@ import io.ktor.http.*
 import kotlinx.coroutines.runBlocking
 import java.net.SocketException
 
-class HiddenSettings : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_hidden_settings)
-
-        supportActionBar?.hide()
-
+class HiddenSettingsFragment(val mainActivity: MainActivity) : Fragment(R.layout.hidden_settings) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val client = HttpClient(Android) {
             engine {
                 connectTimeout = 4_000
@@ -27,15 +22,15 @@ class HiddenSettings : AppCompatActivity() {
             }
         }
 
-        findViewById<Button>(R.id.back).setOnClickListener {
+        view.findViewById<View>(R.id.back).setOnClickListener {
             client.close()
-            finish()
+            mainActivity.showFull(mainActivity.mainMenu)
         }
 
-        val serverAddress = findViewById<TextView>(R.id.serverAddress)
-        val status = findViewById<TextView>(R.id.status)
+        val serverAddress = view.findViewById<TextView>(R.id.serverAddress)
+        val status = view.findViewById<TextView>(R.id.status)
 
-        findViewById<Button>(R.id.check).setOnClickListener {
+        view.findViewById<View>(R.id.check).setOnClickListener {
             status.setTextColor(Color.WHITE)
             status.text = "Проверка..."
             runBlocking {

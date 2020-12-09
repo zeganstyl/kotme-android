@@ -3,8 +3,8 @@ package org.thelemistix.kotme
 import android.os.Bundle
 import android.text.SpannableString
 import android.view.View
-import android.widget.Button
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import de.markusressel.kodehighlighter.core.util.SpannableHighlighter
 import de.markusressel.kodehighlighter.language.kotlin.KotlinRuleBook
 import de.markusressel.kodehighlighter.language.kotlin.colorscheme.DarkBackgroundColorScheme
@@ -21,11 +21,9 @@ import io.ktor.http.*
 import kotlinx.coroutines.*
 import org.json.JSONObject
 
-class ExerciseActivity : CommonActivity(R.layout.activity_exercise) {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-//        val am = AccountManager.get(this) // "this" references the current Context
+class ExerciseFragment(val mainActivity: MainActivity) : Fragment(R.layout.exercise) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        //        val am = AccountManager.get(this) // "this" references the current Context
 //        val accounts = am.getAccountsByType("org.thelemistix.kotme")
 //        am.getPassword(accounts[0])
 //
@@ -38,8 +36,8 @@ class ExerciseActivity : CommonActivity(R.layout.activity_exercise) {
 
         val highlighter = SpannableHighlighter(ruleBook, DarkBackgroundColorScheme())
 
-        val code = findViewById<TextView>(R.id.code)
-        code.text = "fun main() {\nvar qwe = 123\n}"
+        val code = view.findViewById<TextView>(R.id.code)
+        code.text = "fun main() {\nprintln(\"Привет Котлин!\")\n}"
 
         val spannable = SpannableString.valueOf(code.text.toString())
 
@@ -48,15 +46,11 @@ class ExerciseActivity : CommonActivity(R.layout.activity_exercise) {
             code.text = spannable
         }
 
-        val descriptionDialog = ExerciseDescriptionDialog(this)
-
-        descriptionDialog.show()
-
-        findViewById<View>(R.id.description).setOnClickListener {
-            descriptionDialog.show()
+        view.findViewById<View>(R.id.description).setOnClickListener {
+            mainActivity.exerciseDescription.show()
         }
 
-        findViewById<Button>(R.id.check).setOnClickListener {
+        view.findViewById<View>(R.id.check).setOnClickListener {
             val client = HttpClient(Android) {
                 followRedirects = false
                 install(Auth) {
@@ -99,14 +93,17 @@ class ExerciseActivity : CommonActivity(R.layout.activity_exercise) {
                 )
 
                 val response = client.post<String>("http://192.168.0.2/kotme/www/index.php/begin/check") {
-                    contentType(ContentType.Application.Json)
-                    val json = JSONObject()
-                    json.put("exercise", 1)
-                    json.put("code", code.text.toString())
-                    body = json.toString()
+                    contentType(ContentType.Application.FormUrlEncoded)
+                    body = Parameters.build {
+                        append("exercise", "1")
+                        append("code", code.text.toString())
+                    }.formUrlEncode()
                 }
 
-                //println(client.get<String>("http://192.168.0.2/kotme/www/index.php/begin/exercise?n=1"))
+                if (response == "Отличное начало. Продолжай в том же духе!") {
+                    mainActivity.congratulations.show()
+                }
+
                 println(response)
             }
         }

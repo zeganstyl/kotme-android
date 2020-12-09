@@ -1,25 +1,62 @@
 package org.thelemistix.kotme
 
-import android.content.Intent
 import android.content.res.AssetManager
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import java.nio.charset.Charset
 
 
 class MainActivity : AppCompatActivity() {
+    val mainMenu = MainMenuFragment(this)
+    val toolbar = ToolbarFragment(this)
+    val achievements = AchievementsFragment(this)
+    val legend = LegendFragment()
+    val exercise = ExerciseFragment(this)
+    val map = MapFragment()
+    val hiddenSettings = HiddenSettingsFragment(this)
+
+    lateinit var exerciseDescription: ExerciseDescriptionDialog
+    lateinit var congratulations: CongratulationsDialog
+
+    private fun fragmentTransaction(): FragmentTransaction =
+        hideCommon(supportFragmentManager.beginTransaction())
+
+    private fun hideCommon(transaction: FragmentTransaction) = transaction
+        .hide(achievements)
+        .hide(legend)
+        .hide(exercise)
+        .hide(map)
+
+    fun showCommon(fragment: Fragment, stack: Boolean = true) {
+        val t = fragmentTransaction()
+        t.hide(mainMenu)
+        if (toolbar.isHidden) t.show(toolbar)
+        t.show(fragment)
+        if (stack) t.addToBackStack(null)
+        t.commit()
+    }
+
+    fun showFull(fragment: Fragment, stack: Boolean = true) {
+        val t = fragmentTransaction()
+        t.hide(toolbar)
+        t.show(fragment)
+        if (stack) t.addToBackStack(null)
+        t.commit()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        supportActionBar?.hide()
+
+        exerciseDescription = ExerciseDescriptionDialog(this)
+        congratulations = CongratulationsDialog(this)
+
         println("=====")
         println(cacheDir.resolve("cache").readText())
-
-        findViewById<View>(R.id.play).setOnClickListener {
-            startActivity(Intent(this, MapActivity::class.java))
-            startActivity(Intent(this, ExerciseActivity::class.java))
-        }
 
         val db = openOrCreateDatabase("org.thelemistix.kotme", MODE_PRIVATE, null)
 
@@ -37,16 +74,16 @@ class MainActivity : AppCompatActivity() {
         cursor.moveToNext()
         println(cursor.getString(1))
 
-        findViewById<View>(R.id.achievements).setOnClickListener {
-            startActivity(Intent(this, AchievementsActivity::class.java))
-        }
+        val fragmentManager = supportFragmentManager
+        fragmentManager.beginTransaction()
+            .add(R.id.full, mainMenu)
+            .add(R.id.full, toolbar)
+            .add(R.id.common, achievements)
+            .add(R.id.common, legend)
+            .add(R.id.common, exercise)
+            .add(R.id.common, map)
+            .commit()
 
-        findViewById<View>(R.id.legend).setOnClickListener {
-            startActivity(Intent(this, LegendActivity::class.java))
-        }
-
-        findViewById<View>(R.id.seashell).setOnClickListener {
-            startActivity(Intent(this, HiddenSettings::class.java))
-        }
+        showFull(mainMenu)
     }
 }

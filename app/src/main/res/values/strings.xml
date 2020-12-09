@@ -13,4 +13,27 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="next">Далее</string>
+    <string name="zxcvbn">
+        ```java
+final Prism4j prism4j = new Prism4j(new MyGrammarLocator());
+final Grammar grammar = prism4j.grammar("json");
+if (grammar != null) {
+    final AbsVisitor visitor = new AbsVisitor() {
+            @Override
+            protected void visitText(@NonNull Prism4j.Text text) {
+                // raw text
+                text.literal();
+            }
+
+            @Override
+            protected void visitSyntax(@NonNull Prism4j.Syntax syntax) {
+                // type of the syntax token
+                syntax.type();
+                visit(syntax.children());
+            }
+        };
+    visitor.visit(nodes);
+}
+```
+    </string>
 </resources>

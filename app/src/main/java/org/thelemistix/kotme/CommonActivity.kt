@@ -1,8 +1,6 @@
 package org.thelemistix.kotme
 
-import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 
 abstract class CommonActivity(val layoutId: Int): AppCompatActivity() {
@@ -11,15 +9,5 @@ abstract class CommonActivity(val layoutId: Int): AppCompatActivity() {
         setContentView(layoutId)
 
         supportActionBar?.hide()
-
-        val toolbar = findViewById<View>(R.id.toolbar)
-
-        toolbar.findViewById<View>(R.id.back).setOnClickListener {
-            finish()
-        }
-
-        toolbar.findViewById<View>(R.id.menu).setOnClickListener {
-            startActivity(Intent(this, MainActivity::class.java))
-        }
     }
 }
