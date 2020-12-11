@@ -14,11 +14,17 @@ class MainActivity : AppCompatActivity() {
     val achievements = AchievementsFragment(this)
     val legend = LegendFragment()
     val exercise = ExerciseFragment(this)
+    val lesson = LessonFragment(this)
     val map = MapFragment()
     val hiddenSettings = HiddenSettingsFragment(this)
 
     lateinit var exerciseDescription: ExerciseDescriptionDialog
     lateinit var congratulations: CongratulationsDialog
+    lateinit var results: ResultsDialog
+    lateinit var login: LoginDialog
+    lateinit var signUp: SignUpDialog
+
+    val client = KotmeClient(this)
 
     private fun fragmentTransaction(): FragmentTransaction =
         hideCommon(supportFragmentManager.beginTransaction())
@@ -27,6 +33,7 @@ class MainActivity : AppCompatActivity() {
         .hide(achievements)
         .hide(legend)
         .hide(exercise)
+        .hide(lesson)
         .hide(map)
 
     fun showCommon(fragment: Fragment, stack: Boolean = true) {
@@ -41,6 +48,7 @@ class MainActivity : AppCompatActivity() {
     fun showFull(fragment: Fragment, stack: Boolean = true) {
         val t = fragmentTransaction()
         t.hide(toolbar)
+        t.hide(hiddenSettings)
         t.show(fragment)
         if (stack) t.addToBackStack(null)
         t.commit()
@@ -54,6 +62,9 @@ class MainActivity : AppCompatActivity() {
 
         exerciseDescription = ExerciseDescriptionDialog(this)
         congratulations = CongratulationsDialog(this)
+        results = ResultsDialog(this)
+        login = LoginDialog(this)
+        signUp = SignUpDialog(this)
 
         println("=====")
         println(cacheDir.resolve("cache").readText())
@@ -78,12 +89,18 @@ class MainActivity : AppCompatActivity() {
         fragmentManager.beginTransaction()
             .add(R.id.full, mainMenu)
             .add(R.id.full, toolbar)
+            .add(R.id.full, hiddenSettings)
             .add(R.id.common, achievements)
             .add(R.id.common, legend)
             .add(R.id.common, exercise)
+            .add(R.id.common, lesson)
             .add(R.id.common, map)
             .commit()
 
         showFull(mainMenu)
+
+        if (!client.signIn()) {
+            login.show()
+        }
     }
 }

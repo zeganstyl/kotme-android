@@ -7,18 +7,44 @@
     android:orientation="vertical"
     tools:context=".ExerciseFragment">
 
-    <EditText
-        android:id="@+id/code"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="1000px"
+        android:layout_height="wrap_content"
+        android:layout_weight="100">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/code"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/code_frame"
+                android:ems="10"
+                android:gravity="top|left"
+                android:inputType="textMultiLine"
+                android:padding="10dp"
+                android:scrollbars="vertical"
+                android:textColor="@color/code_text" />
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/results"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:layout_weight="1"
-        android:background="@drawable/code_frame"
-        android:ems="10"
-        android:gravity="top|left"
-        android:inputType="textMultiLine"
-        android:padding="10dp"
-        android:scrollbars="vertical" />
+        android:background="@drawable/button_shape"
+        android:fontFamily="@font/roboto_bold"
+        android:gravity="start|center_vertical"
+        android:padding="5dp"
+        android:text="Ошибки: Undefined"
+        android:textAllCaps="false"
+        android:textSize="18sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
