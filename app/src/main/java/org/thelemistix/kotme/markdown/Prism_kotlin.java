@@ -1,4 +1,4 @@
-package org.thelemistix.kotme;
+package org.thelemistix.kotme.markdown;
 
 import org.jetbrains.annotations.NotNull;
 

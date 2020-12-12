@@ -99,7 +99,7 @@ class MainActivity : AppCompatActivity() {
 
         showFull(mainMenu)
 
-        if (!client.signIn()) {
+        if (client.signIn().isNotEmpty()) {
             login.show()
         }
     }

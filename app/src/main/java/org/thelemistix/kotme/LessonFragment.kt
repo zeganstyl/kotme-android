@@ -8,6 +8,7 @@ import io.noties.markwon.Markwon
 import io.noties.markwon.syntax.Prism4jThemeDarkula
 import io.noties.markwon.syntax.SyntaxHighlightPlugin
 import io.noties.prism4j.Prism4j
+import org.thelemistix.kotme.markdown.MyGrammarLocator
 import java.nio.charset.Charset
 
 class LessonFragment(val mainActivity: MainActivity): Fragment(R.layout.lesson) {

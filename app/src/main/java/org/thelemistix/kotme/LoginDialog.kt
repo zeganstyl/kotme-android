@@ -33,11 +33,12 @@ class LoginDialog(val mainActivity: MainActivity): Dialog(mainActivity) {
         login.text = loginText
 
         findViewById<View>(R.id.signIn).setOnClickListener {
-            if (mainActivity.client.signIn(login.text.toString(), password.text.toString(), remember.isChecked)) {
+            val error = mainActivity.client.signIn(login.text.toString(), password.text.toString(), remember.isChecked)
+            if (error.isEmpty()) {
                 setMessage("")
                 hide()
             } else {
-                setMessage("Не верный логин или пароль", Color.RED)
+                setMessage(error, Color.RED)
             }
         }
 

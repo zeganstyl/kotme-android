@@ -1,4 +1,4 @@
-package org.thelemistix.kotme
+package org.thelemistix.kotme.markdown
 
 import io.noties.prism4j.GrammarLocator
 import io.noties.prism4j.Prism4j

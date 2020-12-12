@@ -3,24 +3,29 @@ package org.thelemistix.kotme
 import android.os.Bundle
 import android.text.SpannableString
 import android.view.View
+import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import de.markusressel.kodehighlighter.core.util.SpannableHighlighter
 import kotlinx.coroutines.*
+import org.thelemistix.kotme.markdown.KotlinRuleBook
 
 class ExerciseFragment(val mainActivity: MainActivity) : Fragment(R.layout.exercise) {
     var exercise: Int = 1
 
+    private var resultsButton: Button? = null
+        set(value) {
+            field = value
+            value?.text = resultsButtonText
+        }
+
+    var resultsButtonText: String = ""
+        set(value) {
+            field = value
+            resultsButton?.text = value
+        }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        val am = AccountManager.get(this) // "this" references the current Context
-//        val accounts = am.getAccountsByType("org.thelemistix.kotme")
-//        am.getPassword(accounts[0])
-//
-//
-//        val account = Account("user", "org.thelemistix.kotme")
-//        am.addAccountExplicitly(account, "password", null)
-
-
         val ruleBook = KotlinRuleBook()
 
         val highlighter = SpannableHighlighter(ruleBook, DarkBackgroundColorScheme())
@@ -43,8 +48,12 @@ class ExerciseFragment(val mainActivity: MainActivity) : Fragment(R.layout.exerc
             mainActivity.client.checkCode(code.text.toString(), exercise.toString())
         }
 
-        view.findViewById<View>(R.id.results).setOnClickListener {
-            mainActivity.results.show()
+        resultsButton = view.findViewById(R.id.results)
+        resultsButton?.isActivated = resultsButtonText.isNotEmpty()
+        resultsButton?.setOnClickListener {
+            if (resultsButtonText.isNotEmpty()) {
+                mainActivity.results.show()
+            }
         }
     }
 }

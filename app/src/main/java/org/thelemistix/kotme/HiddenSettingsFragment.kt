@@ -15,33 +15,25 @@ import java.net.SocketException
 
 class HiddenSettingsFragment(val mainActivity: MainActivity) : Fragment(R.layout.hidden_settings) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val client = HttpClient(Android) {
-            engine {
-                connectTimeout = 4_000
-                socketTimeout = 4_000
-            }
-        }
-
-        view.findViewById<View>(R.id.back).setOnClickListener {
-            client.close()
-            mainActivity.showFull(mainActivity.mainMenu)
-        }
-
         val serverAddress = view.findViewById<TextView>(R.id.serverAddress)
         val status = view.findViewById<TextView>(R.id.status)
+
+        view.findViewById<View>(R.id.back).setOnClickListener {
+            mainActivity.client.serverAddress = serverAddress.text.toString()
+            mainActivity.showFull(mainActivity.mainMenu)
+        }
 
         view.findViewById<View>(R.id.check).setOnClickListener {
             status.setTextColor(Color.WHITE)
             status.text = "Проверка..."
-            runBlocking {
-                try {
-                    val response = client.get<HttpResponse>("http://${serverAddress.text}/kotme/www/index.php")
-                    status.setTextColor(if (response.status.isSuccess()) Color.GREEN else Color.RED)
-                    status.text = response.status.description
-                } catch (ex: SocketException) {
-                    status.setTextColor(Color.RED)
-                    status.text = "Нет связи"
-                }
+
+            val response = mainActivity.client.checkServerLink(serverAddress.text.toString())
+            if (response != null) {
+                status.setTextColor(if (response.status.isSuccess()) Color.GREEN else Color.RED)
+                status.text = response.status.description
+            } else {
+                status.setTextColor(Color.RED)
+                status.text = "Нет связи"
             }
         }
     }

@@ -41,8 +41,8 @@
         android:background="@drawable/button_shape"
         android:fontFamily="@font/roboto_bold"
         android:gravity="start|center_vertical"
-        android:padding="5dp"
-        android:text="Ошибки: Undefined"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:textAllCaps="false"
         android:textSize="18sp" />
 
