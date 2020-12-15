@@ -1,4 +1,4 @@
-package org.thelemistix.kotme
+package com.thelemistix.kotme
 
 import org.junit.Test
 

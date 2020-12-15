@@ -19,7 +19,7 @@
         tools:layout_editor_absoluteY="236dp" />
 
     <EditText
-        android:id="@+id/serverAddress"
+        android:id="@+id/address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:editable="true"
@@ -32,6 +32,68 @@
         android:textSize="36sp"
         tools:layout_editor_absoluteX="99dp"
         tools:layout_editor_absoluteY="304dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Протокол:"
+            android:textColor="#FFFFFF"
+            android:textSize="30sp" />
+
+        <EditText
+            android:id="@+id/protocol"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:editable="true"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:singleLine="false"
+            android:text="http"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="36sp"
+            tools:layout_editor_absoluteX="99dp"
+            tools:layout_editor_absoluteY="304dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="URL:"
+            android:textColor="#FFFFFF"
+            android:textSize="30sp" />
+
+        <EditText
+            android:id="@+id/url"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:editable="true"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:singleLine="false"
+            android:text="/kotme/www/index.php"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp"
+            tools:layout_editor_absoluteX="99dp"
+            tools:layout_editor_absoluteY="304dp" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/check"
@@ -58,7 +120,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
         android:background="#000000"
-        android:text="Назад"
+        android:text="Сохранить и выйти"
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
         android:textSize="36sp" />

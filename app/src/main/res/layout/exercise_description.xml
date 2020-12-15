@@ -33,7 +33,6 @@
                     android:layout_weight="1"
                     android:fontFamily="@font/roboto_bold"
                     android:padding="5dp"
-                    android:text="TextView"
                     android:textColor="#000000"
                     android:textSize="14sp" />
 
@@ -65,7 +64,6 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto_bold"
                     android:padding="5dp"
-                    android:text="TextView"
                     android:textAlignment="center"
                     android:textColor="#000000"
                     android:textSize="18sp" />
@@ -76,7 +74,6 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto_bold"
                     android:padding="5dp"
-                    android:text="TextView"
                     android:textColor="#000000" />
             </LinearLayout>
 
@@ -90,23 +87,12 @@
                     android:id="@+id/initialCode"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:padding="5dp"
+                    android:padding="10dp"
                     android:text="TextView"
                     android:textColor="#FFFFFF"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
-
-                <Button
-                    android:id="@+id/copyCode"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0"
-                    android:text="Copy"
-                    android:textAllCaps="false"
-                    android:textSize="18sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>

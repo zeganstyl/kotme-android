@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <org.thelemistix.kotme.CropImageView
+    <com.thelemistix.kotme.CropImageView
         android:id="@+id/imageView10"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -65,7 +65,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.193" />
 
-    <org.thelemistix.kotme.OutlineTextView
+    <com.thelemistix.kotme.OutlineTextView
         android:id="@+id/text3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
