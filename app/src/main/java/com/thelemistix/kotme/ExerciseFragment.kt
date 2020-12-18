@@ -13,14 +13,17 @@ class ExerciseFragment() : FragmentBase(R.layout.exercise) {
 
     var exercise: Int = 1
         set(value) {
+            if (field != value) resultsButtonText = ""
             field = value
             mainActivity.exerciseDescription.exercise = value
 
             val codeView = codeView
             if (codeView != null) {
-                mainActivity.db.getExercise(value) { _, _, initialCode ->
-                    mainActivity.setHighlightedCode(codeView, initialCode)
-                }
+                var code = ""
+                mainActivity.db.getExercise(value) { _, _, initialCode -> code = initialCode }
+                mainActivity.db.getExerciseCache(exercise) { code = it }
+
+                mainActivity.setHighlightedCode(codeView, code)
             }
         }
 

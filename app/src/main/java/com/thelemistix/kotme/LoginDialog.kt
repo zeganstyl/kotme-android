@@ -38,7 +38,7 @@ class LoginDialog(val mainActivity: MainActivity): Dialog(mainActivity) {
             if (status == SignInStatus.OK) {
                 setMessage("")
                 hide()
-                mainActivity.client.syncProgress()
+                mainActivity.client.syncAll()
             } else {
                 setMessage(when (status) {
                     SignInStatus.Fail -> "Не верный логин или пароль"

@@ -2,6 +2,8 @@ package com.thelemistix.kotme
 
 import android.accounts.Account
 import android.accounts.AccountManager
+import android.os.SystemClock
+import android.widget.Toast
 import io.ktor.client.*
 import io.ktor.client.engine.android.*
 import io.ktor.client.features.*
@@ -12,8 +14,6 @@ import io.ktor.client.request.*
 import io.ktor.client.request.forms.*
 import io.ktor.client.statement.*
 import io.ktor.http.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.json.JSONObject
 import java.net.SocketException
@@ -21,7 +21,7 @@ import java.net.SocketException
 class KotmeClient(val mainActivity: MainActivity) {
     var protocol: String = "http"
     var address: String = "192.168.0.2"
-    var url: String = "/kotme/www/index.php"
+    var url: String = "/index.php"
 
     val client = HttpClient(Android) {
         followRedirects = false
@@ -48,6 +48,26 @@ class KotmeClient(val mainActivity: MainActivity) {
     var login: CharArray = charArrayOf()
     var password: CharArray = charArrayOf()
 
+    var isOnline = true
+        set(value) {
+            if (field != value) {
+                field = value
+                mainActivity.runOnUiThread {
+                    toast(if (value) "В режиме онлайн" else "В режиме оффлайн")
+                    syncAll()
+                }
+            }
+        }
+
+    init {
+        Thread {
+            while (true) {
+                if (!isOnline) updateServerLink()
+                SystemClock.sleep(30000L)
+            }
+        }.start()
+    }
+
     fun loadServerConfig() {
         if (mainActivity.prefs.contains("server")) {
             try {
@@ -63,23 +83,72 @@ class KotmeClient(val mainActivity: MainActivity) {
         mainActivity.settings.url = url
     }
 
-    fun syncProgress() {
-        println("sync")
+    fun syncProgress(showNewAchievements: Boolean = true) {
         runBlocking {
-            val response = client.post<HttpResponse>("${url()}/api/progress") {
-                contentType(ContentType.Application.FormUrlEncoded)
-                body = Parameters.build {
-                    appendLoginPassword(this)
-                }.formUrlEncode()
-            }
-            var responseString = ""
-            response.content.read {
-                responseString = Charsets.UTF_8.decode(it).toString()
-            }
+            try {
+                val response = client.post<HttpResponse>("${url()}/api/progress") {
+                    contentType(ContentType.Application.FormUrlEncoded)
+                    body = Parameters.build {
+                        appendLoginPassword(this)
+                    }.formUrlEncode()
+                }
+                var responseString = ""
+                response.content.read {
+                    responseString = Charsets.UTF_8.decode(it).toString()
+                }
 
-            println(responseString)
+                mainActivity.db.setProgress(responseString, showNewAchievements)
+            } catch (ex: SocketException) {
+                isOnline = false
+            }
+        }
+    }
 
-            mainActivity.db.setProgress(responseString)
+    fun syncAll() {
+        mainActivity.db.checkAllUncheckedCode()
+
+        runBlocking {
+            try {
+                val response = client.post<HttpResponse>("${url()}/api/sync_all") {
+                    contentType(ContentType.Application.FormUrlEncoded)
+                    body = Parameters.build {
+                        appendLoginPassword(this)
+                    }.formUrlEncode()
+                }
+                var responseString = ""
+                response.content.read {
+                    responseString = Charsets.UTF_8.decode(it).toString()
+                }
+
+                mainActivity.db.setProgress(responseString)
+            } catch (ex: SocketException) {
+                isOnline = false
+            }
+        }
+    }
+
+    fun syncExercise(exercise: Int) {
+        runBlocking {
+            try {
+                val response = client.post<HttpResponse>("${url()}/api/cached_code") {
+                    contentType(ContentType.Application.FormUrlEncoded)
+                    body = Parameters.build {
+                        appendLoginPassword(this)
+                        append("exercise", exercise.toString())
+                    }.formUrlEncode()
+                }
+
+                if (response.status.value == 200) {
+                    var responseString = ""
+                    response.content.read {
+                        responseString = Charsets.UTF_8.decode(it).toString()
+                    }
+
+                    if (responseString.isNotEmpty()) mainActivity.db.setExerciseCache(exercise, responseString, true)
+                }
+            } catch (ex: SocketException) {
+                isOnline = false
+            }
         }
     }
 
@@ -150,6 +219,7 @@ class KotmeClient(val mainActivity: MainActivity) {
                     else -> SignInStatus.ServerError
                 }
             } catch (ex: SocketException) {
+                isOnline = false
                 status = SignInStatus.LinkIsDown
             }
         }
@@ -173,22 +243,26 @@ class KotmeClient(val mainActivity: MainActivity) {
 
     /** Sign up on server */
     fun signUp(login: String, password: String) {
-        runBlocking {
-            client.submitForm<HttpResponse>(
-                "${url()}/site/newregistration",
-                parametersOf(
-                    Pair("Users[login]", listOf(login)),
-                    Pair("Users[name]", listOf(login)),
-                    Pair("Users[password]", listOf(password))
+        try {
+            runBlocking {
+                client.submitForm<HttpResponse>(
+                    "${url()}/site/newregistration",
+                    parametersOf(
+                        Pair("Users[login]", listOf(login)),
+                        Pair("Users[name]", listOf(login)),
+                        Pair("Users[password]", listOf(password))
+                    )
                 )
-            )
-        }
 
-        mainActivity.login.loginText = login
-        mainActivity.login.show()
+                mainActivity.login.loginText = login
+                mainActivity.login.show()
+            }
+        } catch (ex: SocketException) {
+            isOnline = false
+        }
     }
 
-    fun checkCode(code: String, exercise: String): Boolean {
+    fun checkCode(code: String, exercise: String, workInBackground: Boolean = false): Boolean {
         var result = false
         runBlocking {
             try {
@@ -213,44 +287,71 @@ class KotmeClient(val mainActivity: MainActivity) {
                         mainActivity.results.console = if (responseJson.has("console")) responseJson.getString("console") else ""
                         mainActivity.results.message = if (responseJson.has("message")) responseJson.getString("message") else ""
 
-                        if (responseJson.getInt("status") == ResultStatus.TestsSuccess) {
-                            mainActivity.exercise.resultsButtonText = "Задание выполнено"
-                            mainActivity.congratulations.show()
+                        if (!workInBackground) {
+                            if (responseJson.getInt("status") == ResultStatus.TestsSuccess) {
+                                mainActivity.exercise.resultsButtonText = "Задание выполнено"
+                                mainActivity.congratulations.show()
+                            } else {
+                                mainActivity.exercise.resultsButtonText = mainActivity.results.message.substringBefore('\n')
+                                mainActivity.results.show()
+                            }
                         } else {
-                            mainActivity.exercise.resultsButtonText = mainActivity.results.message.substringBefore('\n')
-                            mainActivity.results.show()
+                            if (responseJson.getInt("status") == ResultStatus.TestsSuccess) {
+                                toast("Задание $exercise проверено\nВыполнено успешно")
+                            } else {
+                                if (mainActivity.exercise.exercise == exercise.toInt()) {
+                                    mainActivity.exercise.resultsButtonText = mainActivity.results.message.substringBefore('\n')
+                                }
+                                toast("Задание $exercise проверено\nЕсть ошибки")
+                            }
                         }
+
+                        syncProgress(true)
+                        mainActivity.map.setCurrentExercise()
+
                         result = true
                     }
                     401 -> {
-                        mainActivity.login.show()
+                        if (!workInBackground) {
+                            mainActivity.login.show()
+                        }
                     }
                     500 -> {
-                        mainActivity.systemMessage.message = "Ошибка сервера"
-                        mainActivity.systemMessage.show()
-                        // TODO contact administrator
+                        if (!workInBackground) {
+                            mainActivity.systemMessage.message = "Ошибка сервера"
+                            mainActivity.systemMessage.show()
+                        }
                     }
                 }
             } catch (ex: SocketException) {
-                mainActivity.systemMessage.message = "На данный момент сервер не доступен.\nКод будет сохранен. Как только появится соединение с сервером, код будет проверен"
-                mainActivity.systemMessage.show()
+                isOnline = false
+
+                if (!workInBackground) {
+                    mainActivity.systemMessage.message = "На данный момент сервер не доступен.\nКод будет сохранен. Как только появится соединение с сервером, код будет проверен"
+                    mainActivity.systemMessage.show()
+                }
             }
         }
         return result
     }
 
-    fun checkServerLink(address: String): HttpResponse? {
+    fun toast(text: String) = Toast.makeText(mainActivity, text, Toast.LENGTH_LONG).show()
+
+    fun checkServerLink(address: String, protocol: String, url: String): HttpResponse? {
         var response: HttpResponse? = null
         runBlocking {
             try {
-                response = mainActivity.client.client.get<HttpResponse>(url(address))
+                response = mainActivity.client.client.get<HttpResponse>("$protocol://$address$url")
             } catch (ex: SocketException) {
             }
         }
         return response
     }
 
-    fun checkServerLink(): Boolean = checkServerLink(address)?.status?.isSuccess() == true
+    fun updateServerLink(): Boolean {
+        isOnline = checkServerLink(address, protocol, url)?.status?.isSuccess() == true
+        return isOnline
+    }
 
     companion object {
         const val Origin = "com.thelemistix.kotme"

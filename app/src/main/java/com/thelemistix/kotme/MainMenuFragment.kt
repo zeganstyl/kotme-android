@@ -6,7 +6,12 @@ import android.view.View
 class MainMenuFragment(): FragmentBase(R.layout.main_menu, true) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         view.findViewById<View>(R.id.play).setOnClickListener {
-            mainActivity.showCommon(mainActivity.lesson)
+            if (mainActivity.db.progress > 0) {
+                mainActivity.map.setCurrentExercise()
+                mainActivity.map.show()
+            } else {
+                mainActivity.legend.show()
+            }
         }
 
         view.findViewById<View>(R.id.achievements).setOnClickListener {
@@ -18,7 +23,7 @@ class MainMenuFragment(): FragmentBase(R.layout.main_menu, true) {
         }
 
         view.findViewById<View>(R.id.seashell).setOnClickListener {
-            mainActivity.showFull(mainActivity.settings)
+            mainActivity.settings.show()
         }
     }
 }

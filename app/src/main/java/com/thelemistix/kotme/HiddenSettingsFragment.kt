@@ -53,7 +53,7 @@ class HiddenSettingsFragment() : FragmentBase(R.layout.hidden_settings, true) {
             status.setTextColor(Color.WHITE)
             status.text = "Проверка..."
 
-            val response = mainActivity.client.checkServerLink(address.text.toString())
+            val response = mainActivity.client.checkServerLink(address.text.toString(), protocol.text.toString(), url.text.toString())
             if (response != null) {
                 status.setTextColor(if (response.status.isSuccess()) Color.GREEN else Color.RED)
                 status.text = "${response.status.value} - ${response.status.description}"

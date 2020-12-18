@@ -11,10 +11,16 @@ open class FragmentBase(
         get() = activity as MainActivity
 
     open fun show() {
+        this.onPause()
         if (full) {
             mainActivity.showFull(this, stack)
         } else {
             mainActivity.showCommon(this, stack)
         }
+    }
+
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+        view?.isClickable = !hidden
     }
 }

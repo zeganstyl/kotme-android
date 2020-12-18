@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+<layer-list
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:id="@+id/completed">
+    <item
+        android:id="@+id/completed"
+        android:visible="false">
         <shape
             android:shape="oval" >
 
@@ -15,7 +18,10 @@
         </shape>
     </item>
 
-    <item android:id="@+id/current">
+    <item
+        android:id="@+id/current"
+        android:visible="false"
+        >
         <shape
             android:shape="oval" >
 

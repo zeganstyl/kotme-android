@@ -119,9 +119,10 @@ class MainActivity : AppCompatActivity() {
 
         when (client.signIn()) {
             SignInStatus.Fail -> login.show()
-            SignInStatus.OK -> {
-                client.syncProgress()
+            SignInStatus.NoRememberedAccount -> {
+                if (client.updateServerLink()) login.show()
             }
+            SignInStatus.OK -> client.syncAll()
         }
     }
 

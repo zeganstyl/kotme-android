@@ -4,4 +4,9 @@
         <attr name="outlineColor" format="color" />
         <attr name="outlineWidth" format="dimension" />
     </declare-styleable>
+    <declare-styleable name="MapMarker">
+        <attr name="state_completed" format="boolean"/>
+        <attr name="state_current" format="boolean"/>
+        <attr name="state_undiscovered" format="boolean"/>
+    </declare-styleable>
 </resources>
