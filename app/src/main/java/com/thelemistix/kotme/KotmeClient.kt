@@ -20,7 +20,7 @@ import java.net.SocketException
 
 class KotmeClient(val mainActivity: MainActivity) {
     var protocol: String = "http"
-    var address: String = "192.168.0.2"
+    var address: String = "192.168.0.2:8000"
     var url: String = "/index.php"
 
     val client = HttpClient(Android) {
@@ -54,7 +54,7 @@ class KotmeClient(val mainActivity: MainActivity) {
                 field = value
                 mainActivity.runOnUiThread {
                     toast(if (value) "В режиме онлайн" else "В режиме оффлайн")
-                    syncAll()
+                    if (value) syncAll()
                 }
             }
         }
