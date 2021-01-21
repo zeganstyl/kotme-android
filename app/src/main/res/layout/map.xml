@@ -111,6 +111,36 @@
                     android:background="@drawable/map_marker_completed"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/exercise8"
+                    android:layout_width="27dp"
+                    android:layout_height="25dp"
+                    android:layout_marginStart="200dp"
+                    android:layout_marginTop="168dp"
+                    android:background="@drawable/map_marker_completed"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/exercise9"
+                    android:layout_width="27dp"
+                    android:layout_height="25dp"
+                    android:layout_marginStart="264dp"
+                    android:layout_marginTop="158dp"
+                    android:background="@drawable/map_marker_completed"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/exercise10"
+                    android:layout_width="27dp"
+                    android:layout_height="25dp"
+                    android:layout_marginStart="320dp"
+                    android:layout_marginTop="152dp"
+                    android:background="@drawable/map_marker_completed"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

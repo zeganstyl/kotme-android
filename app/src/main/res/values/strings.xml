@@ -36,4 +36,6 @@ if (grammar != null) {
 }
 ```
     </string>
+    <string name="check">Проверить</string>
+    <string name="show_desc">Показать описание</string>
 </resources>
