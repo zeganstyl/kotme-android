@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/mainMenuFragment"
+        android:title="@string/menu" />
+    <item
+        android:id="@+id/mapFragment"
+        android:title="@string/map" />
+    <item
+        android:id="@+id/exerciseFragment"
+        android:title="@string/code" />
+    <item
+        android:id="@+id/achievementsFragment"
+        android:title="@string/achievements" />
+    <item
+        android:id="@+id/login"
+        android:title="@string/user" />
+</menu>

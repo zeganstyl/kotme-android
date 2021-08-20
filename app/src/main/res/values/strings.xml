@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">KOTme</string>
+    <string name="app_name" translatable="false">KOTme</string>
     <string name="legend">
         Поиски древних сокровищ всегда интересовали авантюристов всех мастей, с тех самых пор,как эти сокровища укрывали - с глубокой древности. Путешественник отправляется на остров для поиска древнего клада. Помоги путешественнику расшифровать карту и найти сокровища. Двигайся по карте острова, решая задачи по Kotlin, ищи подсказки и доберись первым до сокровищ.
     </string>
@@ -12,30 +12,21 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
-    <string name="next">Далее</string>
-    <string name="zxcvbn">
-        ```java
-final Prism4j prism4j = new Prism4j(new MyGrammarLocator());
-final Grammar grammar = prism4j.grammar("json");
-if (grammar != null) {
-    final AbsVisitor visitor = new AbsVisitor() {
-            @Override
-            protected void visitText(@NonNull Prism4j.Text text) {
-                // raw text
-                text.literal();
-            }
+    <string name="next">Next</string>
+    <string name="achievements_count">Achievements: %1$s/10</string>
+    <string name="exercise_number">Exercise %1$s</string>
+    <string name="check">Check</string>
+    <string name="show_desc">Show description</string>
 
-            @Override
-            protected void visitSyntax(@NonNull Prism4j.Syntax syntax) {
-                // type of the syntax token
-                syntax.type();
-                visit(syntax.children());
-            }
-        };
-    visitor.visit(nodes);
-}
-```
-    </string>
-    <string name="check">Проверить</string>
-    <string name="show_desc">Показать описание</string>
+    <string name="menu">Menu</string>
+    <string name="map">Map</string>
+    <string name="achievements">Achievements</string>
+    <string name="code">Code</string>
+    <string name="user">User</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
+    <string name="kotme">KOTme</string>
+    <string name="play">Играть</string>
+    <string name="legend_title">Легенда</string>
+    <string name="message8">Сообщение:</string>
 </resources>

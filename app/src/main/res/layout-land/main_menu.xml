@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.kotme.CropImageView
+        android:id="@+id/background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:adjustViewBounds="false"
+        android:cropToPadding="false"
+        android:scaleType="fitStart"
+        android:src="@drawable/b_3" />
+
+    <ImageView
+        android:id="@+id/seashell"
+        android:layout_width="90dp"
+        android:layout_height="102dp"
+        android:src="@drawable/seashell"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.176"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/crab"
+        android:layout_width="158dp"
+        android:layout_height="115dp"
+        android:adjustViewBounds="false"
+        android:cropToPadding="false"
+        android:scaleType="fitCenter"
+        android:scaleX="2"
+        android:scaleY="2"
+        android:src="@drawable/crab_hello"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.975"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.849" />
+
+    <ImageView
+        android:id="@+id/boards"
+        android:layout_width="310dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="-50dp"
+        android:layout_weight="1"
+        android:adjustViewBounds="false"
+        android:cropToPadding="false"
+        android:scaleType="centerInside"
+        android:src="@drawable/menu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/background"
+        app:layout_constraintTop_toBottomOf="@+id/logo_frame" />
+
+    <Button
+        android:id="@+id/legend"
+        android:layout_width="267dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="140dp"
+        android:background="#00000000"
+        android:text="@string/legend_title"
+        android:textAllCaps="false"
+        android:textColor="#6C461A"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logo_frame" />
+
+    <FrameLayout
+        android:id="@+id/logo_frame"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/background"
+        app:layout_constraintStart_toStartOf="@+id/background"
+        app:layout_constraintTop_toTopOf="@+id/background"
+        app:layout_constraintVertical_bias="0.100000024">
+
+        <ImageView
+            android:id="@+id/logo_background"
+            android:layout_width="300dp"
+            android:layout_height="100dp"
+            android:src="@drawable/wood" />
+
+        <com.kotme.OutlineTextView
+            android:id="@+id/logo_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/kotme"
+            android:textColor="#FFFF00"
+            android:textSize="50sp"
+            app:outlineColor="#e7a321"
+            app:outlineWidth="5dp" />
+    </FrameLayout>
+
+    <Button
+        android:id="@+id/play"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:background="#00000000"
+        android:text="@string/play"
+        android:textAllCaps="false"
+        android:textColor="@color/bottom_bar"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logo_frame" />
+
+    <Button
+        android:id="@+id/achievements"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="85dp"
+        android:background="#00000000"
+        android:text="@string/achievements"
+        android:textAllCaps="false"
+        android:textColor="#6C461A"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logo_frame" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

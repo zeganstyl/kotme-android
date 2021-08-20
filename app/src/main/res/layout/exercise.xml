@@ -28,8 +28,7 @@
                 android:inputType="textMultiLine"
                 android:padding="10dp"
                 android:scrollbars="vertical"
-                android:textColor="@color/code_text"
-                android:autofillHints="" />
+                android:textColor="@color/code_text" />
         </LinearLayout>
     </ScrollView>
 
@@ -39,13 +38,9 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:layout_weight="1"
-        android:background="@drawable/button_shape"
-        android:fontFamily="@font/roboto_bold"
         android:gravity="start|center_vertical"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
         android:textAllCaps="false"
-        android:textSize="18sp" />
+        tools:text="Fail" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -74,11 +69,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_margin="20dp"
-            android:background="@drawable/button_shape"
             android:text="@string/check"
-            android:textAllCaps="false"
-            android:textColor="#6C461A"
-            android:textSize="18sp" />
+            android:textAllCaps="false" />
     </LinearLayout>
 
 </LinearLayout>

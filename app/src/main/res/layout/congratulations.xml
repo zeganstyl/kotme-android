@@ -13,7 +13,7 @@
         android:gravity="center|center_horizontal"
         android:orientation="vertical">
 
-        <com.thelemistix.kotme.OutlineTextView
+        <com.kotme.OutlineTextView
             android:id="@+id/text4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

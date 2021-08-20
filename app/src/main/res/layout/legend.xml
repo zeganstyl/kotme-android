@@ -7,23 +7,27 @@
     tools:context=".LegendFragment">
 
     <LinearLayout
-        android:layout_width="350dp"
-        android:layout_height="550dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:background="@drawable/paper"
+        android:background="@drawable/parchment_alpha"
         android:gravity="center|center_horizontal"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingLeft="50dp"
+        android:paddingTop="70dp"
+        android:paddingRight="50dp"
+        android:paddingBottom="70dp">
 
         <TextView
             android:id="@+id/text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="30dp"
+            android:layout_marginBottom="30dp"
             android:fontFamily="@font/roboto_bold"
             android:gravity="center_horizontal"
             android:text="@string/legend"
             android:textAlignment="center"
-            android:textColor="#000000"
+            android:textColor="@color/bottom_bar"
             android:textSize="18sp"
             android:textStyle="normal"
             app:layout_constraintBottom_toBottomOf="parent"

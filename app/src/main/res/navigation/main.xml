@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    app:startDestination="@id/mainMenuFragment">
+
+    <fragment
+        android:id="@+id/achievementsFragment"
+        android:name="com.kotme.AchievementsFragment"
+        android:label="AchievementsFragment" />
+    <fragment
+        android:id="@+id/mainMenuFragment"
+        android:name="com.kotme.MainMenuFragment"
+        android:label="MainMenuFragment">
+        <action
+            android:id="@+id/action_mainMenuFragment_to_achievementsFragment"
+            app:destination="@id/achievementsFragment" />
+        <action
+            android:id="@+id/action_mainMenuFragment_to_legendFragment"
+            app:destination="@id/legendFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/legendFragment"
+        android:name="com.kotme.LegendFragment"
+        android:label="legend"
+        tools:layout="@layout/legend" />
+    <fragment
+        android:id="@+id/mapFragment"
+        android:name="com.kotme.MapFragment"
+        android:label="map"
+        tools:layout="@layout/map" >
+        <action
+            android:id="@+id/toLesson"
+            app:destination="@id/lessonFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/exerciseFragment"
+        android:name="com.kotme.ExerciseFragment"
+        android:label="exercise"
+        tools:layout="@layout/exercise" >
+        <argument
+            android:name="exerciseId"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/lessonFragment"
+        android:name="com.kotme.LessonFragment"
+        android:label="LessonFragment" >
+        <argument
+            android:name="exerciseId"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_lessonFragment_to_exerciseFragment"
+            app:destination="@id/exerciseFragment" />
+    </fragment>
+</navigation>
