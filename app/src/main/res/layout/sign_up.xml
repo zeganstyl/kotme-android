@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LegendFragment">
+    tools:context=".fragment.LegendFragment">
 
     <LinearLayout
         android:layout_width="350dp"
@@ -14,7 +14,7 @@
         android:gravity="center|center_horizontal"
         android:orientation="vertical">
 
-        <com.kotme.OutlineTextView
+        <com.kotme.view.OutlineTextView
             android:id="@+id/text5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

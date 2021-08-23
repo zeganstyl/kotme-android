@@ -1,4 +1,4 @@
-package com.kotme.data
+package com.kotme.common
 
 enum class CodeCheckResultStatus {
     NoStatus,

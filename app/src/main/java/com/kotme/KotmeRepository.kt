@@ -4,10 +4,8 @@ import androidx.lifecycle.MutableLiveData
 import com.kotme.api.CodeCheckResult
 import com.kotme.api.KotmeApi
 import com.kotme.data.*
-import io.ktor.utils.io.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.lang.Exception
@@ -26,11 +24,9 @@ class KotmeRepository @Inject constructor(
         var job: Job? = null
         scope.launch {
             userDao.getProgressFlow().collect { progress ->
-                println("progress: $progress")
                 job?.cancel()
                 job = scope.launch {
                     exerciseDao.get((progress ?: -2) + 1).collect {
-                        println("progress exe: $it")
                         liveData.value = it
                     }
                 }
@@ -76,7 +72,7 @@ class KotmeRepository @Inject constructor(
     }
 
     suspend fun checkCode(exercise: Exercise): CodeCheckResult =
-        kotmeApi.checkCode(exercise.id, exercise.userCode).also {
+        kotmeApi.checkCode(exercise.id, exercise.userCode.also { println(it) }).also {
             exerciseDao.setResult(exercise.id, it.status, it.message, it.consoleLog)
         }
 }

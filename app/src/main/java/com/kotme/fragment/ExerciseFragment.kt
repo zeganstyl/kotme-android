@@ -1,4 +1,4 @@
-package com.kotme
+package com.kotme.fragment
 
 import android.os.Bundle
 import android.text.Spannable
@@ -10,13 +10,17 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
-import com.kotme.data.CodeCheckResultStatus
+import androidx.navigation.fragment.findNavController
+import com.kotme.KotmeRepository
+import com.kotme.R
+import com.kotme.common.CodeCheckResultStatus
 import com.kotme.databinding.ExerciseBinding
 import com.kotme.markdown.Highlighter
+import com.kotme.common.show
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -29,9 +33,16 @@ class ExerciseFragment : Fragment() {
     ): View = ExerciseBinding.inflate(inflater).apply {
         val viewModel by viewModels<ExerciseViewModel>()
 
+        val codeFlow = MutableStateFlow("")
         code.addTextChangedListener {
             if (it != null) {
                 viewModel.highlight(it)
+                codeFlow.value = it.toString()
+            }
+        }
+        viewModel.viewModelScope.launch {
+            codeFlow.debounce(1000L).collect {
+                viewModel.saveCode(it)
             }
         }
 
@@ -46,14 +57,22 @@ class ExerciseFragment : Fragment() {
                 if (it.resultStatus == CodeCheckResultStatus.TestsSuccess) {
                     CongratulationsDialog().show()
                 } else if (it.resultStatus != CodeCheckResultStatus.NoStatus) {
-                    ResultsDialog().show()
+                    findNavController().navigate(R.id.resultsFragment)
                 }
             }
         }
 
         viewModel.exercise.observe(viewLifecycleOwner) {
-            results.text = it?.resultStatus?.toString()
-            viewModel.highlight(code, it?.initialCode ?: "")
+            if (it != null) {
+                results.text = it.resultStatus.toString()
+                if (it.userCode.isNotEmpty()) {
+                    if (it.userCode != code.text.toString()) {
+                        viewModel.highlight(code, it.userCode)
+                    }
+                } else {
+                    viewModel.highlight(code, it.initialCode)
+                }
+            }
         }
     }.root
 }
@@ -65,9 +84,9 @@ class ExerciseViewModel @Inject constructor(
 ) : ViewModel() {
     val exercise = repo.currentExerciseLiveData(viewModelScope)
 
-    fun saveCode(code: String) {
+    suspend fun saveCode(code: String) {
         exercise.value?.also {
-            viewModelScope.launch { repo.saveCode(it.id, code) }
+            repo.saveCode(it.id, code)
         }
     }
 

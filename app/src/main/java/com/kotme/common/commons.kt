@@ -1,10 +1,10 @@
-package com.kotme
+package com.kotme.common
 
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 
-fun Fragment.kotmeViewModel() = viewModels<MapViewModel>()
+const val KotmeOrigin = "com.kotme"
 
 fun DialogFragment.show() {
     dialog?.show()

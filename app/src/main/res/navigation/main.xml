@@ -7,11 +7,11 @@
 
     <fragment
         android:id="@+id/achievementsFragment"
-        android:name="com.kotme.AchievementsFragment"
+        android:name="com.kotme.fragment.AchievementsFragment"
         android:label="AchievementsFragment" />
     <fragment
         android:id="@+id/mainMenuFragment"
-        android:name="com.kotme.MainMenuFragment"
+        android:name="com.kotme.fragment.MainMenuFragment"
         android:label="MainMenuFragment">
         <action
             android:id="@+id/action_mainMenuFragment_to_achievementsFragment"
@@ -22,7 +22,7 @@
     </fragment>
     <fragment
         android:id="@+id/legendFragment"
-        android:name="com.kotme.LegendFragment"
+        android:name="com.kotme.fragment.LegendFragment"
         android:label="legend"
         tools:layout="@layout/legend" />
     <fragment
@@ -36,12 +36,15 @@
     </fragment>
     <fragment
         android:id="@+id/exerciseFragment"
-        android:name="com.kotme.ExerciseFragment"
+        android:name="com.kotme.fragment.ExerciseFragment"
         android:label="exercise"
         tools:layout="@layout/exercise" >
         <argument
             android:name="exerciseId"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_exerciseFragment_to_resultsFragment"
+            app:destination="@id/resultsFragment" />
     </fragment>
     <fragment
         android:id="@+id/lessonFragment"
@@ -54,4 +57,8 @@
             android:id="@+id/action_lessonFragment_to_exerciseFragment"
             app:destination="@id/exerciseFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/resultsFragment"
+        android:name="com.kotme.fragment.ResultsFragment"
+        android:label="ResultsFragment" />
 </navigation>

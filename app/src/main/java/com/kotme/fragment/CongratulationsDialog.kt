@@ -1,10 +1,12 @@
-package com.kotme
+package com.kotme.fragment
 
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.DialogFragment
 import androidx.navigation.fragment.findNavController
+import com.kotme.R
 import com.kotme.databinding.CongratulationsBinding
+import com.kotme.common.hide
 
 class CongratulationsDialog : DialogFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =

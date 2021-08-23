@@ -1,14 +1,11 @@
 package com.kotme.data
 
 import android.content.Context
-import android.os.Environment
-import androidx.room.Database
-import androidx.room.Room
-import androidx.room.RoomDatabase
+import androidx.room.*
 import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
-import androidx.work.workDataOf
+import com.kotme.common.CodeCheckResultStatus
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,6 +14,7 @@ import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
 @Database(entities = [Exercise::class, Achievement::class, User::class], version = 1)
+@TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun exerciseDao(): ExerciseDao
     abstract fun achievementDao(): AchievementDao
@@ -68,4 +66,12 @@ class DatabaseModule {
     @Singleton
     @Provides
     fun userDao(db: AppDatabase): UserDao = db.userDao()
+}
+
+class Converters {
+    @TypeConverter
+    fun toCodeCheckResultStatus(value: String) = CodeCheckResultStatus.valueOf(value)
+
+    @TypeConverter
+    fun fromCodeCheckResultStatus(value: CodeCheckResultStatus) = value.name
 }

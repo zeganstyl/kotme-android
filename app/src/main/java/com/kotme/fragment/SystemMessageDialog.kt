@@ -1,4 +1,4 @@
-package com.kotme
+package com.kotme.fragment
 
 import android.app.Dialog
 import android.graphics.Color
@@ -8,6 +8,8 @@ import android.view.View
 import android.view.Window
 import android.view.WindowManager
 import android.widget.TextView
+import com.kotme.MainActivity
+import com.kotme.R
 
 class SystemMessageDialog(val mainActivity: MainActivity): Dialog(mainActivity) {
     var message: String = ""

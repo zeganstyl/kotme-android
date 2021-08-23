@@ -1,6 +1,8 @@
 package com.kotme.data
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.kotme.common.CodeCheckResultStatus
 import kotlinx.coroutines.flow.Flow
 
 @Entity
@@ -53,25 +55,25 @@ data class Exercise(
 @Dao
 interface ExerciseDao {
     @Query("SELECT * FROM exercise WHERE id = :id")
-    fun getFlow(id: Int): Flow<Exercise?>
+    fun getFlow(id: Int): LiveData<Exercise?>
 
     @Query("SELECT * FROM exercise WHERE id = :id")
     fun get(id: Int): Flow<Exercise?>
 
     @Query("SELECT * FROM exercise")
-    fun all(): Flow<List<Exercise>>
+    fun all(): LiveData<List<Exercise>?>
 
     @Query("SELECT * FROM exercise WHERE number = :number LIMIT 1")
-    fun getByNumber(number: Int): Flow<Exercise>
+    fun getByNumber(number: Int): LiveData<Exercise?>
 
     @Query("UPDATE exercise SET userCode = :code WHERE id = :id")
     suspend fun setCode(id: Int, code: String)
 
     @Query("UPDATE exercise SET resultStatus = :status, resultMessage = :message, resultConsole = :consoleLog WHERE id = :id")
-    fun setResult(id: Int, status: CodeCheckResultStatus, message: String, consoleLog: String)
+    suspend fun setResult(id: Int, status: CodeCheckResultStatus, message: String, consoleLog: String)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insert(item: Exercise)
+    suspend fun insert(item: Exercise)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(items: List<Exercise>)

@@ -1,4 +1,4 @@
-package com.kotme
+package com.kotme.fragment
 
 import android.app.Dialog
 import android.graphics.Color
@@ -7,6 +7,8 @@ import android.os.Bundle
 import android.view.Window
 import android.view.WindowManager
 import android.widget.TextView
+import com.kotme.MainActivity
+import com.kotme.R
 
 class SignUpDialog(val mainActivity: MainActivity): Dialog(mainActivity) {
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -1,4 +1,4 @@
-package com.kotme
+package com.kotme.fragment
 
 import android.app.Dialog
 import android.graphics.Color
@@ -7,8 +7,9 @@ import android.os.Bundle
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
-import android.widget.CheckBox
 import android.widget.TextView
+import com.kotme.MainActivity
+import com.kotme.R
 
 class LoginDialog(val mainActivity: MainActivity): Dialog(mainActivity) {
     private var message: String = ""

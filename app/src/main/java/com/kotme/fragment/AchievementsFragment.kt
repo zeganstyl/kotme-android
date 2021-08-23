@@ -1,17 +1,24 @@
-package com.kotme
+package com.kotme.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.kotme.KotmeRepository
+import com.kotme.R
 import com.kotme.data.Achievement
 import com.kotme.databinding.AchievementItemBinding
 import com.kotme.databinding.AchievementsBinding
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
 class AchievementsFragment: Fragment() {
     override fun onCreateView(
@@ -19,7 +26,7 @@ class AchievementsFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View = AchievementsBinding.inflate(inflater).apply {
-        val viewModel by kotmeViewModel()
+        val viewModel by viewModels<AchievementsViewModel>()
 
         next.setOnClickListener {
             findNavController().navigateUp()
@@ -27,14 +34,14 @@ class AchievementsFragment: Fragment() {
 
         val adapter = AchievementListAdapter()
         items.adapter = adapter
-//        viewModel.achievements.observe(viewLifecycleOwner) { list ->
-//            adapter.submitList(list)
-//            getString(R.string.achievements_count, list.count { it.received }.toString())
-//        }
+        viewModel.achievements.observe(viewLifecycleOwner) { list ->
+            adapter.submitList(list)
+            getString(R.string.achievements_count, list.count { it.received }.toString())
+        }
 
-//        viewModel.userProgress.observe(viewLifecycleOwner) {
-//            userProgress.progress = it
-//        }
+        viewModel.userProgress.observe(viewLifecycleOwner) {
+            userProgress.progress = it ?: 0
+        }
     }.root
 }
 
@@ -66,4 +73,11 @@ private class AchievementDiffCallback : DiffUtil.ItemCallback<Achievement>() {
 
     override fun areContentsTheSame(oldItem: Achievement, newItem: Achievement): Boolean =
         oldItem == newItem
+}
+
+@HiltViewModel
+class AchievementsViewModel @Inject constructor(val repo: KotmeRepository) : ViewModel() {
+    val achievements = repo.achievementDao.all().asLiveData()
+
+    val userProgress = repo.userProgress().asLiveData()
 }

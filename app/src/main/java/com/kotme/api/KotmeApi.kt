@@ -1,5 +1,6 @@
 package com.kotme.api
 
+import com.kotme.common.CodeCheckResultStatus
 import com.kotme.data.*
 import io.ktor.client.*
 import io.ktor.client.engine.android.*

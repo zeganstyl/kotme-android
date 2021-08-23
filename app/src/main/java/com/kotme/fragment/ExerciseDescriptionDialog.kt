@@ -1,4 +1,4 @@
-package com.kotme
+package com.kotme.fragment
 
 import android.view.View
 import android.os.Bundle
@@ -10,6 +10,8 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.kotme.KotmeRepository
+import com.kotme.R
 import com.kotme.databinding.ExerciseDescriptionBinding
 import com.kotme.markdown.Highlighter
 import dagger.hilt.android.AndroidEntryPoint

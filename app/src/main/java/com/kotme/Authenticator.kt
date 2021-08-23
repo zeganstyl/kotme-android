@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.accounts.AccountManager
 
 import android.content.Intent
+import com.kotme.common.KotmeOrigin
 
 class Authenticator(val context: Context) // Simple constructor
     : AbstractAccountAuthenticator(context) {
@@ -30,7 +31,7 @@ class Authenticator(val context: Context) // Simple constructor
         val intent = Intent(context, MainActivity::class.java)
 
         // This key can be anything. Try to use your domain/package
-        intent.putExtra(KotmeClient.Origin, accountType)
+        intent.putExtra(KotmeOrigin, accountType)
 
         // This key can be anything too. It's just a way of identifying the token's type (used when there are multiple permissions)
         intent.putExtra("full_access", authTokenType)

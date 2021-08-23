@@ -29,4 +29,5 @@
     <string name="play">Играть</string>
     <string name="legend_title">Легенда</string>
     <string name="message8">Сообщение:</string>
+    <string name="outputFromConsole8">Вывод из консоли:</string>
 </resources>

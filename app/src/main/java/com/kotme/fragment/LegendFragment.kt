@@ -1,4 +1,4 @@
-package com.kotme
+package com.kotme.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater

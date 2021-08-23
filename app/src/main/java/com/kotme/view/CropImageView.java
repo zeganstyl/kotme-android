@@ -1,4 +1,4 @@
-package com.kotme;
+package com.kotme.view;
 
 import android.content.Context;
 import android.graphics.Matrix;
