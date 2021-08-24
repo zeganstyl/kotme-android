@@ -1,8 +1,8 @@
 package com.kotme
 
 import androidx.lifecycle.MutableLiveData
-import com.kotme.api.CodeCheckResult
 import com.kotme.api.KotmeApi
+import com.kotme.common.CodeCheckResult
 import com.kotme.data.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
@@ -37,12 +37,12 @@ class KotmeRepository @Inject constructor(
 
     suspend fun getUpdates(from: Long) {
         try {
-            val updates = kotmeApi.getUpdates(from)
+            kotmeApi.getUpdates(from).apply {
+                achievementDao.insert(achievements.map { Achievement(it) })
+                exerciseDao.insert(exercises.map { Exercise(it) })
 
-            achievementDao.insert(updates.achievements.map { it.entity() })
-            exerciseDao.insert(updates.exercises.map { it.entity() })
-
-            userDao.insert(User(updates.user.name, updates.user.progress, 1, updates.lastUpdateTime))
+                userDao.insert(User(user.name, user.progress, lastUpdateTime))
+            }
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -73,6 +73,6 @@ class KotmeRepository @Inject constructor(
 
     suspend fun checkCode(exercise: Exercise): CodeCheckResult =
         kotmeApi.checkCode(exercise.id, exercise.userCode.also { println(it) }).also {
-            exerciseDao.setResult(exercise.id, it.status, it.message, it.consoleLog)
+            exerciseDao.setResult(exercise.id, it.status, it.errors, it.consoleLog)
         }
 }

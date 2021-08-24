@@ -6,19 +6,18 @@
     app:startDestination="@id/mainMenuFragment">
 
     <fragment
-        android:id="@+id/achievementsFragment"
-        android:name="com.kotme.fragment.AchievementsFragment"
-        android:label="AchievementsFragment" />
-    <fragment
         android:id="@+id/mainMenuFragment"
         android:name="com.kotme.fragment.MainMenuFragment"
         android:label="MainMenuFragment">
         <action
-            android:id="@+id/action_mainMenuFragment_to_achievementsFragment"
-            app:destination="@id/achievementsFragment" />
-        <action
             android:id="@+id/action_mainMenuFragment_to_legendFragment"
             app:destination="@id/legendFragment" />
+        <action
+            android:id="@+id/action_mainMenuFragment_to_userProfileFragment2"
+            app:destination="@id/userProfileFragment" />
+        <action
+            android:id="@+id/action_mainMenuFragment_to_mapFragment"
+            app:destination="@id/mapFragment" />
     </fragment>
     <fragment
         android:id="@+id/legendFragment"
@@ -27,7 +26,7 @@
         tools:layout="@layout/legend" />
     <fragment
         android:id="@+id/mapFragment"
-        android:name="com.kotme.MapFragment"
+        android:name="com.kotme.fragment.MapFragment"
         android:label="map"
         tools:layout="@layout/map" >
         <action
@@ -48,7 +47,7 @@
     </fragment>
     <fragment
         android:id="@+id/lessonFragment"
-        android:name="com.kotme.LessonFragment"
+        android:name="com.kotme.fragment.LessonFragment"
         android:label="LessonFragment" >
         <argument
             android:name="exerciseId"
@@ -61,4 +60,25 @@
         android:id="@+id/resultsFragment"
         android:name="com.kotme.fragment.ResultsFragment"
         android:label="ResultsFragment" />
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="com.kotme.fragment.SignUpFragment"
+        android:label="SignUpFragment" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.kotme.fragment.LoginFragment"
+        android:label="LoginFragment" >
+        <action
+            android:id="@+id/action_loginFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/userProfileFragment"
+        android:name="com.kotme.fragment.UserProfileFragment"
+        android:label="user_profile"
+        tools:layout="@layout/user_profile" >
+        <action
+            android:id="@+id/action_userProfileFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
 </navigation>

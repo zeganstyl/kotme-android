@@ -15,7 +15,7 @@ class SeedDatabaseWorker(
 
     override suspend fun doWork(): Result = withContext(Dispatchers.IO) {
         val database = AppDatabase.getInstance(applicationContext)
-        database.userDao().insert(User("", 0, User.ID))
+        database.userDao().insert(User("", 0, id = User.ID))
         database.exerciseDao().insert(
             Exercise(
                 1,

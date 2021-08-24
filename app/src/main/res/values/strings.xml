@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name" translatable="false">KOTme</string>
     <string name="legend">
         Поиски древних сокровищ всегда интересовали авантюристов всех мастей, с тех самых пор,как эти сокровища укрывали - с глубокой древности. Путешественник отправляется на остров для поиска древнего клада. Помоги путешественнику расшифровать карту и найти сокровища. Двигайся по карте острова, решая задачи по Kotlin, ищи подсказки и доберись первым до сокровищ.
     </string>
@@ -25,9 +24,17 @@
     <string name="user">User</string>
     <string name="login">Login</string>
     <string name="password">Password</string>
-    <string name="kotme">KOTme</string>
-    <string name="play">Играть</string>
-    <string name="legend_title">Легенда</string>
-    <string name="message8">Сообщение:</string>
-    <string name="outputFromConsole8">Вывод из консоли:</string>
+    <string name="kotme" translatable="false">KOTme</string>
+    <string name="play">Play</string>
+    <string name="legend_title">Legend</string>
+    <string name="message8">Message:</string>
+    <string name="outputFromConsole8">Console log:</string>
+    <string name="back">Back</string>
+    <string name="accept">Accept</string>
+    <string name="retypePassword">Retype password</string>
+    <string name="name">Name</string>
+    <string name="save">Save</string>
+    <string name="excelentWork">Отличная работа!</string>
+    <string name="signin">Войти</string>
+    <string name="signup">Регистрация</string>
 </resources>

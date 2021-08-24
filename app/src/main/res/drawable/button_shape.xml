@@ -9,5 +9,5 @@
         android:color="@color/border" />
 
     <solid
-        android:color="#FFD59F13"/>
+        android:color="#FFE5CF33"/>
 </shape>

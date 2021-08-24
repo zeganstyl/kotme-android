@@ -1,35 +1,36 @@
-package com.kotme
+package com.kotme.fragment
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
+import com.kotme.KotmeRepository
+import com.kotme.databinding.UserProfileBinding
+import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class UserProfileFragment : Fragment() {
-
-    companion object {
-        fun newInstance() = UserProfileFragment()
-    }
-
-    private lateinit var viewModel: UserProfileViewModel
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.user_profile_fragment, container, false)
-    }
+    ) = UserProfileBinding.inflate(inflater, container, false).apply {
+        val viewModel by viewModels<UserProfileViewModel>()
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(UserProfileViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
+        nameSwitcher.setOnClickListener { nameSwitcher.showNext() }
+
+        viewModel.user.observe(viewLifecycleOwner) {
+            nameView.text = it?.name
+            name.setText(it?.name)
+        }
+    }.root
 }
 
-class UserProfileViewModel : ViewModel() {
-    // TODO: Implement the ViewModel
+@HiltViewModel
+class UserProfileViewModel @Inject constructor(val repo: KotmeRepository): ViewModel() {
+    val user = repo.userDao.getFlow().asLiveData()
 }

@@ -1,12 +1,15 @@
 package com.kotme
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.setupWithNavController
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -39,5 +42,18 @@ class MainActivity : AppCompatActivity() {
 //        val navController = navHostFragment.navController
 //        findViewById<BottomNavigationView>(R.id.bottom_nav)
 //            .setupWithNavController(navController)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val viewModel by viewModels<MainActivityViewModel>()
+        viewModel.getUpdates()
+    }
+}
+
+@HiltViewModel
+class MainActivityViewModel @Inject constructor(private val repo: KotmeRepository): ViewModel() {
+    fun getUpdates() {
+        viewModelScope.launch { repo.getUpdates(0) }
     }
 }

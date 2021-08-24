@@ -7,10 +7,10 @@ import kotlinx.coroutines.flow.Flow
 class User(
     val name: String,
     val progress: Int,
-    @PrimaryKey
-    val id: Int = ID,
     val dataUpdateTime: Long = 0,
-    val currentExercise: Int = 1
+    val currentExercise: Int = 1,
+    @PrimaryKey
+    val id: Int = ID
 ) {
     companion object {
         const val ID = 1

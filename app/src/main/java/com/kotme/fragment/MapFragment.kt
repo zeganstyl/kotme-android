@@ -1,5 +1,7 @@
-package com.kotme
+package com.kotme.fragment
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +12,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
+import com.kotme.KotmeRepository
+import com.kotme.R
+import com.kotme.common.show
 import com.kotme.databinding.MapBinding
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,13 +23,13 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class MapFragment : Fragment() {
-    val viewModel by viewModels<MapViewModel>()
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View = MapBinding.inflate(inflater).apply {
+        val viewModel by viewModels<MapViewModel>()
+
         val markers = ArrayList<View>()
         markers.add(exercise1)
         markers.add(exercise2)
@@ -47,31 +52,29 @@ class MapFragment : Fragment() {
 
         viewModel.currentProgressExercise.observe(viewLifecycleOwner) { exercise ->
             markers.forEach { it.background = null }
-            message.text = exercise?.characterMessage ?: ""
             exercise?.also {
                 for (i in 0 until it.number) {
-                    markers[i].setBackgroundResource(R.drawable.map_marker_completed)
+                    markers[i].also { marker ->
+                        marker.setBackgroundResource(R.drawable.map_marker_completed)
+                        marker.animate()
+                            .alpha(1f)
+                            .setDuration(500L)
+                            .setListener(object : AnimatorListenerAdapter() {
+                                override fun onAnimationEnd(animation: Animator) {
+                                    marker.visibility = View.VISIBLE
+                                }
+                            })
+                    }
                 }
                 markers[it.number - 1].setBackgroundResource(R.drawable.map_marker_current)
             }
         }
 
-        next.setOnClickListener {
-            viewModel.userProgress.value?.also {
-                viewModel.setExercise(it + 1)
-                findNavController().navigate(MapFragmentDirections.toLesson(it + 1))
-            }
-        }
+        CharacterDialog().show(childFragmentManager, null)
     }.root
 }
 
 @HiltViewModel
 class MapViewModel @Inject constructor(val repo: KotmeRepository) : ViewModel() {
-    val userProgress = repo.userProgress().asLiveData()
-
     val currentProgressExercise = repo.currentProgressExerciseLiveData(viewModelScope)
-
-    fun setExercise(number: Int) {
-        viewModelScope.launch { repo.setCurrentExercise(number) }
-    }
 }

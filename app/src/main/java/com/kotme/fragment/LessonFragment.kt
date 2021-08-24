@@ -1,4 +1,4 @@
-package com.kotme
+package com.kotme.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,9 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
+import com.kotme.KotmeRepository
+import com.kotme.R
 import com.kotme.databinding.LessonBinding
 import com.kotme.markdown.MyGrammarLocator
 import dagger.hilt.android.AndroidEntryPoint
@@ -18,19 +19,10 @@ import io.noties.markwon.Markwon
 import io.noties.markwon.syntax.Prism4jThemeDarkula
 import io.noties.markwon.syntax.SyntaxHighlightPlugin
 import io.noties.prism4j.Prism4j
-import kotlinx.coroutines.launch
 import javax.inject.Inject
-
-//import io.noties.markwon.Markwon
-//import io.noties.markwon.syntax.Prism4jThemeDarkula
-//import io.noties.markwon.syntax.SyntaxHighlightPlugin
-//import io.noties.prism4j.Prism4j
-//import com.kotme.markdown.MyGrammarLocator
 
 @AndroidEntryPoint
 class LessonFragment: Fragment() {
-    //lateinit var markdown: Markwon
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

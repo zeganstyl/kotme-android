@@ -3,6 +3,7 @@ package com.kotme.data
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.kotme.common.CodeCheckResultStatus
+import com.kotme.common.ExerciseDTO
 import kotlinx.coroutines.flow.Flow
 
 @Entity
@@ -49,6 +50,17 @@ data class Exercise(
         CodeCheckResultStatus.NoStatus,
         "",
         ""
+    )
+
+    constructor(dto: ExerciseDTO): this(
+        dto.id,
+        dto.number,
+        dto.name,
+        dto.lessonText,
+        dto.storyText,
+        dto.exerciseText,
+        dto.initialCode,
+        dto.characterMessage
     )
 }
 

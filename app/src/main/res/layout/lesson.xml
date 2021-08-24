@@ -4,6 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/parchment_alpha"
+    android:paddingLeft="40dp"
+    android:paddingTop="60dp"
+    android:paddingRight="40dp"
+    android:paddingBottom="60dp"
     tools:context=".fragment.LegendFragment">
 
     <ScrollView
@@ -20,10 +25,8 @@
                 android:id="@+id/lessonText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="30dp"
                 android:background="@color/light"
                 android:fontFamily="@font/roboto_bold"
-                android:gravity="center_horizontal"
                 android:padding="5dp"
                 android:textAlignment="textStart"
                 android:textColor="#000000"
@@ -33,18 +36,16 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/toolbar"
-                app:layout_constraintVertical_bias="0.467" />
+                app:layout_constraintVertical_bias="0.467"
+                tools:text="Markdown text" />
 
             <Button
                 android:id="@+id/next"
                 android:layout_width="200dp"
                 android:layout_height="44dp"
-                android:layout_marginBottom="30dp"
-                android:background="@drawable/button_shape"
-                android:text="Перейти к заданию"
+                android:layout_margin="20dp"
+                android:text="@string/next"
                 android:textAllCaps="false"
-                android:textColor="#6C461A"
-                android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.498"

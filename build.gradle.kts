@@ -24,6 +24,7 @@ allprojects {
     repositories {
         google()
         mavenCentral()
+        mavenLocal()
         maven { setUrl("https://jitpack.io") }
     }
 }

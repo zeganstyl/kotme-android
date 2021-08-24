@@ -109,4 +109,6 @@ dependencies {
     implementation("io.noties.markwon:syntax-highlight:$markwon_version") {
         exclude(group = "org.jetbrains", module = "annotations-java5")
     }
+
+    implementation("com.kotme:kotme-common:0.0.0")
 }

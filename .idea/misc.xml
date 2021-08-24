@@ -3,12 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/app_icon_background.xml" value="0.37447916666666664" />
         <entry key="app/src/main/res/drawable/button_shape.xml" value="0.37447916666666664" />
         <entry key="app/src/main/res/drawable/map_marker_completed.xml" value="0.21614583333333334" />
         <entry key="app/src/main/res/layout-land/main_menu.xml" value="0.33" />
         <entry key="app/src/main/res/layout/achievement_item.xml" value="0.33" />
         <entry key="app/src/main/res/layout/achievements.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2942122186495177" />
+        <entry key="app/src/main/res/layout/character_dialog.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/congratulations.xml" value="0.2563405797101449" />
         <entry key="app/src/main/res/layout/content_main.xml" value="0.2" />
         <entry key="app/src/main/res/layout/exercise.xml" value="0.2" />
         <entry key="app/src/main/res/layout/exercise_description.xml" value="0.2" />
@@ -23,6 +26,7 @@
         <entry key="app/src/main/res/layout/sign_up.xml" value="0.3183876811594203" />
         <entry key="app/src/main/res/layout/system_message.xml" value="0.32653985507246375" />
         <entry key="app/src/main/res/layout/toolbar.xml" value="0.2" />
+        <entry key="app/src/main/res/layout/user_profile.xml" value="0.25" />
         <entry key="app/src/main/res/layout/user_profile_fragment.xml" value="0.22" />
         <entry key="app/src/main/res/menu/bottom_nav.xml" value="0.35833333333333334" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/app_icon.xml" value="0.21614583333333334" />

@@ -1,6 +1,7 @@
 package com.kotme.data
 
 import androidx.room.*
+import com.kotme.common.AchievementDTO
 import kotlinx.coroutines.flow.Flow
 
 @Entity
@@ -9,7 +10,13 @@ data class Achievement(
     val name: String,
     val conditionText: String,
     val received: Boolean = false
-)
+) {
+    constructor(dto: AchievementDTO): this(
+        dto.id,
+        dto.name,
+        dto.conditionText
+    )
+}
 
 @Dao
 interface AchievementDao {

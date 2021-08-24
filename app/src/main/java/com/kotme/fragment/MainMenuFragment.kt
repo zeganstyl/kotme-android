@@ -10,7 +10,6 @@ import com.kotme.R
 import com.kotme.databinding.MainMenuBinding
 import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 class MainMenuFragment: Fragment(R.layout.main_menu) {
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -19,13 +18,6 @@ class MainMenuFragment: Fragment(R.layout.main_menu) {
     ): View = MainMenuBinding.inflate(inflater).apply {
         play.setOnClickListener {
             findNavController().navigate(R.id.mapFragment)
-
-//            if (mainActivity.db.progress > 0) {
-//                mainActivity.map.setCurrentExercise()
-//                findNavController().navigate(R.id.mapFragment)
-//            } else {
-//                findNavController().navigate(R.id.legendFragment)
-//            }
         }
 
         achievements.setOnClickListener { findNavController().navigate(R.id.achievementsFragment) }

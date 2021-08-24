@@ -19,7 +19,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@AndroidEntryPoint
 class ExerciseDescriptionDialog : DialogFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
         ExerciseDescriptionBinding.inflate(inflater, container, false).also { binding ->

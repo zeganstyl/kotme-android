@@ -4,15 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MapFragment">
+    tools:context=".fragment.MapFragment">
 
     <FrameLayout
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="190dp"
         android:layout_weight="1"
-        app:layout_constraintBottom_toBottomOf="@+id/frameLayout3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -27,6 +25,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
+                android:contentDescription="@string/map"
                 android:scaleType="center"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -48,6 +47,7 @@
                     android:layout_height="30dp"
                     android:layout_marginStart="83dp"
                     android:layout_marginTop="207dp"
+                    android:alpha="0"
                     android:background="@drawable/map_marker_completed"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -58,6 +58,7 @@
                     android:layout_height="30dp"
                     android:layout_marginStart="13dp"
                     android:layout_marginBottom="102dp"
+                    android:alpha="0"
                     android:background="@drawable/map_marker_completed"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
@@ -68,6 +69,7 @@
                     android:layout_height="28dp"
                     android:layout_marginStart="12dp"
                     android:layout_marginTop="110dp"
+                    android:alpha="0"
                     android:background="@drawable/map_marker_completed"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -78,6 +80,7 @@
                     android:layout_height="25dp"
                     android:layout_marginStart="56dp"
                     android:layout_marginTop="64dp"
+                    android:alpha="0"
                     android:background="@drawable/map_marker_completed"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -88,6 +91,7 @@
                     android:layout_height="25dp"
                     android:layout_marginStart="142dp"
                     android:layout_marginTop="51dp"
+                    android:alpha="0"
                     android:background="@drawable/map_marker_completed"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -98,6 +102,7 @@
                     android:layout_height="25dp"
                     android:layout_marginStart="212dp"
                     android:layout_marginTop="55dp"
+                    android:alpha="0"
                     android:background="@drawable/map_marker_completed"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -108,6 +113,7 @@
                     android:layout_height="25dp"
                     android:layout_marginStart="151dp"
                     android:layout_marginTop="111dp"
+                    android:alpha="0"
                     android:background="@drawable/map_marker_completed"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -118,6 +124,7 @@
                     android:layout_height="25dp"
                     android:layout_marginStart="200dp"
                     android:layout_marginTop="168dp"
+                    android:alpha="0"
                     android:background="@drawable/map_marker_completed"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -128,6 +135,7 @@
                     android:layout_height="25dp"
                     android:layout_marginStart="264dp"
                     android:layout_marginTop="158dp"
+                    android:alpha="0"
                     android:background="@drawable/map_marker_completed"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -138,90 +146,13 @@
                     android:layout_height="25dp"
                     android:layout_marginStart="320dp"
                     android:layout_marginTop="152dp"
+                    android:alpha="0"
                     android:background="@drawable/map_marker_completed"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </FrameLayout>
-
-    <FrameLayout
-        android:id="@+id/frameLayout3"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <View
-            android:id="@+id/view3"
-            android:layout_width="220dp"
-            android:layout_height="180dp"
-            android:layout_gravity="bottom|end"
-            android:layout_marginEnd="-40dp"
-            android:layout_marginBottom="140dp"
-            android:background="@drawable/portrait_oval" />
-    </FrameLayout>
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="175dp"
-        android:src="@drawable/character_portrait"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <FrameLayout
-        android:id="@+id/frameLayout2"
-        android:layout_width="match_parent"
-        android:layout_height="190dp"
-        android:background="#FFDC82"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="10dp"
-            android:background="#EEC047"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
-
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="100dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/message"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="#EEC047"
-                        android:gravity="start|center_vertical"
-                        android:padding="10dp"
-                        android:textAlignment="gravity"
-                        android:textColor="#000000"
-                        android:textSize="18sp" />
-                </LinearLayout>
-            </ScrollView>
-
-            <Button
-                android:id="@+id/next"
-                android:layout_width="150dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:background="@drawable/button_shape"
-                android:text=">>>"
-                android:textAllCaps="false"
-                android:textColor="@color/light"
-                android:textSize="24sp" />
-        </LinearLayout>
 
     </FrameLayout>
 

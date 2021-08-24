@@ -17,9 +17,11 @@ import com.kotme.R
 import com.kotme.data.Achievement
 import com.kotme.databinding.AchievementItemBinding
 import com.kotme.databinding.AchievementsBinding
+import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class AchievementsFragment: Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,

@@ -1,96 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.LegendFragment">
+    android:layout_gravity="center"
+    android:background="@drawable/wooden_box"
+    android:gravity="center|center_horizontal"
+    android:orientation="vertical"
+    android:padding="40dp">
 
-    <LinearLayout
-        android:layout_width="350dp"
-        android:layout_height="400dp"
-        android:layout_gravity="center"
-        android:background="@drawable/panel"
-        android:gravity="center|center_horizontal"
-        android:orientation="vertical">
+    <com.kotme.view.OutlineTextView
+        android:id="@+id/text5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="@string/kotme"
+        android:textAlignment="center"
+        android:textColor="#FFFF00"
+        android:textSize="50sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.211"
+        app:outlineColor="#e7a321"
+        app:outlineWidth="5dp" />
 
-        <com.kotme.view.OutlineTextView
-            android:id="@+id/text5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:text="KOTme"
-            android:textAlignment="center"
-            android:textColor="#FFFF00"
-            android:textSize="50sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.211"
-            app:outlineColor="#e7a321"
-            app:outlineWidth="5dp" />
+    <TextView
+        android:id="@+id/errorMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textColor="@color/error"
+        android:textSize="20sp"
+        tools:text="Error" />
 
-        <EditText
-            android:id="@+id/login"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="35dp"
-            android:layout_marginRight="35dp"
-            android:layout_marginBottom="20dp"
-            android:background="#FFFFFF"
-            android:ems="10"
-            android:hint="Логин"
-            android:inputType="textPersonName"
-            android:minHeight="48dp"
-            android:padding="5dp"
-            android:textSize="18sp" />
+    <EditText
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:autofillHints="username"
+        android:background="#FFFFFF"
+        android:ems="10"
+        android:hint="@string/name"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:padding="5dp"
+        android:textSize="18sp" />
 
-        <EditText
-            android:id="@+id/password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="35dp"
-            android:layout_marginRight="35dp"
-            android:layout_marginBottom="20dp"
-            android:background="#FFFFFF"
-            android:ems="10"
-            android:hint="Пароль"
-            android:inputType="textPassword"
-            android:minHeight="48dp"
-            android:padding="5dp" />
+    <EditText
+        android:id="@+id/login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="#FFFFFF"
+        android:ems="10"
+        android:hint="@string/login"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:padding="5dp"
+        android:textSize="18sp"
+        android:autofillHints="username" />
 
-        <EditText
-            android:id="@+id/retypePassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="35dp"
-            android:layout_marginRight="35dp"
-            android:layout_marginBottom="20dp"
-            android:background="#FFFFFF"
-            android:ems="10"
-            android:hint="Повторите пароль"
-            android:inputType="textPassword"
-            android:minHeight="48dp"
-            android:padding="5dp" />
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="#FFFFFF"
+        android:ems="10"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        android:minHeight="48dp"
+        android:padding="5dp"
+        android:autofillHints="password" />
 
-        <Button
-            android:id="@+id/next"
-            android:layout_width="150dp"
-            android:layout_height="48dp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/button_shape"
-            android:text="Принять"
-            android:textAllCaps="false"
-            android:textColor="#6C461A"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/toolbar"
-            app:layout_constraintVertical_bias="0.743" />
+    <EditText
+        android:id="@+id/retypePassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="#FFFFFF"
+        android:ems="10"
+        android:hint="@string/retypePassword"
+        android:inputType="textPassword"
+        android:minHeight="48dp"
+        android:padding="5dp"
+        android:autofillHints="password" />
 
-    </LinearLayout>
+    <Button
+        android:id="@+id/accept"
+        android:layout_width="200dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/button_shape"
+        android:text="@string/accept"
+        android:textAllCaps="false"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="0.743" />
 
-</FrameLayout>
+    <Button
+        android:id="@+id/back"
+        android:layout_width="200dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/button_shape"
+        android:text="@string/back"
+        android:textAllCaps="false"
+        android:textColor="#6C461A"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/toolbar"
+        app:layout_constraintVertical_bias="0.743" />
+
+</LinearLayout>
