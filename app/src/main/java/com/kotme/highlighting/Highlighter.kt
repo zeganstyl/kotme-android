@@ -1,4 +1,4 @@
-package com.kotme.markdown
+package com.kotme.highlighting
 
 import android.text.SpannableString
 import android.widget.TextView

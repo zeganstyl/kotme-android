@@ -1,71 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragment.MapFragment">
 
-    <View
-        android:id="@+id/view3"
-        android:layout_width="220dp"
-        android:layout_height="180dp"
-        android:layout_gravity="bottom|end"
-        android:layout_marginEnd="-40dp"
-        android:layout_marginBottom="-50dp"
-        android:background="@drawable/portrait_oval"
-        app:layout_constraintBottom_toTopOf="@+id/frameLayout2"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="-20dp"
-        android:contentDescription="jones"
-        android:src="@drawable/character_portrait"
-        app:layout_constraintBottom_toTopOf="@+id/frameLayout2"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <LinearLayout
-        android:id="@+id/frameLayout2"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:background="#FFDC82"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:padding="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        android:layout_height="match_parent">
 
-        <ScrollView
+        <View
+            android:id="@+id/view3"
+            android:layout_width="220dp"
+            android:layout_height="180dp"
+            android:layout_gravity="bottom|end"
+            android:layout_marginEnd="-40dp"
+            android:layout_marginBottom="-50dp"
+            android:background="@drawable/portrait_oval"
+            app:layout_constraintBottom_toTopOf="@+id/frameLayout2"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="-20dp"
+            android:contentDescription="jones"
+            android:src="@drawable/character_portrait"
+            app:layout_constraintBottom_toTopOf="@+id/frameLayout2"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/frameLayout2"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:background="#EEC047">
+            android:layout_height="250dp"
+            android:background="#FFDC82"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
 
-            <TextView
-                android:id="@+id/message"
+            <ScrollView
                 android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="#EEC047">
+
+                <TextView
+                    android:id="@+id/message"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#EEC047"
+                    android:gravity="start|center_vertical"
+                    android:padding="10dp"
+                    android:textAlignment="gravity"
+                    android:textColor="#000000"
+                    android:textSize="18sp"
+                    tools:text="Character message\n..." />
+            </ScrollView>
+
+            <Button
+                android:id="@+id/next"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:background="#EEC047"
-                android:gravity="start|center_vertical"
-                android:padding="10dp"
-                android:textAlignment="gravity"
-                android:textColor="#000000"
-                android:textSize="18sp"
-                tools:text="Character message\n..." />
-        </ScrollView>
+                android:layout_margin="10dp"
+                android:text="@string/next"
+                android:textAllCaps="false" />
+        </LinearLayout>
 
-        <Button
-            android:id="@+id/next"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:text="@string/next"
-            android:textAllCaps="false" />
-    </LinearLayout>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

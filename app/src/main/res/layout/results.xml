@@ -11,7 +11,8 @@
     android:paddingLeft="40dp"
     android:paddingTop="50dp"
     android:paddingRight="40dp"
-    android:paddingBottom="50dp">
+    android:paddingBottom="50dp"
+    tools:context=".fragment.ResultsFragment">
 
     <ScrollView
         android:layout_width="match_parent"

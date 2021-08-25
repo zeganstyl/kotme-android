@@ -1,4 +1,4 @@
-package com.kotme.markdown
+package com.kotme.highlighting
 
 import de.markusressel.kodehighlighter.core.rule.LanguageRule
 import de.markusressel.kodehighlighter.core.rule.RuleHelper

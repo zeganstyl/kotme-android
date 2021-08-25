@@ -1,6 +1,9 @@
-package com.kotme.api
+package com.kotme
 
 import android.content.Context
+import android.security.keystore.KeyGenParameterSpec
+import androidx.security.crypto.EncryptedSharedPreferences
+import androidx.security.crypto.MasterKey
 import com.kotme.common.*
 import dagger.hilt.android.qualifiers.ApplicationContext
 import io.ktor.client.*
@@ -12,28 +15,37 @@ import io.ktor.client.features.json.*
 import io.ktor.client.features.json.serializer.*
 import io.ktor.client.request.*
 import io.ktor.client.request.forms.*
+import io.ktor.client.statement.*
 import io.ktor.http.*
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class KotmeApi @Inject constructor(@ApplicationContext val context: Context) {
-   suspend fun getUpdates(from: Long = 0): UpdatesDTO = client.get("/user/updates/$from")
+   private val masterKey = MasterKey.Builder(context)
+      .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
+      .build()
 
-   suspend fun getExercises(): List<ExerciseDTO> = client.get("/exercises")
-   suspend fun getAchievements(): List<AchievementDTO> = client.get("/achievements")
-
-   suspend fun checkCode(exercise: Int, code: String): CodeCheckResult = client.submitForm(
-      url = "/user/codes/$exercise",
-      formParameters = Parameters.build {
-         append("exercise", exercise.toString())
-         append("code", code)
-      }
+   val credentialsPrefs = EncryptedSharedPreferences.create(
+      context,
+      "kotme",
+      masterKey,
+      EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+      EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
    )
 
-   suspend fun getUserAchievements(): List<UserAchievementDTO> = client.get("/user/achievements")
+   private var tempLogin: String = ""
+   private var tempPass: String = ""
 
-   suspend fun signUp(name: String, login: String, password: String): HttpRequest = client.submitForm(
+   suspend fun getUpdates(from: Long = 0): UpdatesDTO = client.get("${PATH.api_user_updates}/$from")
+
+   suspend fun checkCode(exercise: Int, code: String): CodeCheckResult =
+      client.post("${PATH.api_user_codes}/$exercise") { body = code }
+
+   suspend fun checkCodeAnonym(exercise: Int, code: String): CodeCheckResult =
+      clientAnonym.post("${PATH.api_code}/$exercise") { body = code }
+
+   suspend fun signUp(name: String, login: String, password: String): HttpResponse = clientAnonym.submitForm(
       url = PATH.api_signup,
       formParameters = Parameters.build {
          append("name", name)
@@ -42,8 +54,16 @@ class KotmeApi @Inject constructor(@ApplicationContext val context: Context) {
       }
    )
 
-   suspend fun login(login: String, password: String) {
-      tokenClient.get<String>("/")
+   suspend fun tryLogin(name: String, pass: String): Boolean = try {
+      tempLogin = name
+      tempPass = pass
+      tokenClient.get<String>()
+      tempLogin = ""
+      tempPass = ""
+      true
+   } catch (ex: Exception) {
+      ex.printStackTrace()
+      false
    }
 
    private val tokenClient = HttpClient(Android) {
@@ -52,20 +72,23 @@ class KotmeApi @Inject constructor(@ApplicationContext val context: Context) {
       }
       install(Auth) {
          basic {
-            credentials { BasicAuthCredentials("root", "root") }
-            realm = "kotme.com"
+            credentials {
+               val name = tempLogin.ifEmpty { credentialsPrefs.getString("name", "") ?: "" }
+               val pass = tempPass.ifEmpty { credentialsPrefs.getString("pass", "") ?: "" }
+               BasicAuthCredentials(name, pass)
+            }
          }
       }
       install(DefaultRequest) {
          url {
             protocol = URLProtocol.HTTPS
             host = "kotme-service.herokuapp.com"
-            encodedPath = "/api/token"
+            encodedPath = PATH.api_token
          }
       }
    }
 
-   private val client: HttpClient = HttpClient(Android) {
+   private fun HttpClientConfig<AndroidEngineConfig>.setupClient() {
       followRedirects = false
       install(JsonFeature) {
          serializer = KotlinxSerializer()
@@ -86,20 +109,25 @@ class KotmeApi @Inject constructor(@ApplicationContext val context: Context) {
 //            level = LogLevel.ALL
 //        }
       install(DefaultRequest) {
-         headers.append("Accept","application/json")
          url {
             protocol = URLProtocol.HTTPS
             host = "kotme-service.herokuapp.com"
-            encodedPath = "/api/$encodedPath"
          }
       }
+   }
+
+   private val clientAnonym: HttpClient = HttpClient(Android) {
+      setupClient()
+   }
+
+   private val client: HttpClient = HttpClient(Android) {
+      setupClient()
       install(Auth) {
          bearer {
             loadTokens {
                BearerTokens(tokenClient.get(), "")
             }
             refreshTokens {
-               context
                BearerTokens(tokenClient.get(), "")
             }
          }

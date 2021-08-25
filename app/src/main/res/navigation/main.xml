@@ -14,7 +14,7 @@
             app:destination="@id/legendFragment" />
         <action
             android:id="@+id/action_mainMenuFragment_to_userProfileFragment2"
-            app:destination="@id/userProfileFragment" />
+            app:destination="@id/accountFragment" />
         <action
             android:id="@+id/action_mainMenuFragment_to_mapFragment"
             app:destination="@id/mapFragment" />
@@ -73,10 +73,10 @@
             app:destination="@id/signUpFragment" />
     </fragment>
     <fragment
-        android:id="@+id/userProfileFragment"
-        android:name="com.kotme.fragment.UserProfileFragment"
-        android:label="user_profile"
-        tools:layout="@layout/user_profile" >
+        android:id="@+id/accountFragment"
+        android:name="com.kotme.fragment.AccountFragment"
+        android:label="account"
+        tools:layout="@layout/account">
         <action
             android:id="@+id/action_userProfileFragment_to_loginFragment"
             app:destination="@id/loginFragment" />

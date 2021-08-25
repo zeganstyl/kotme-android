@@ -1,5 +1,7 @@
-package com.kotme.markdown
+package com.kotme.highlighting
 
+import com.kotme.highlighting.DarkBackgroundColorScheme
+import com.kotme.highlighting.FunctionDeclarationRule
 import de.markusressel.kodehighlighter.core.LanguageRuleBook
 import de.markusressel.kodehighlighter.core.colorscheme.ColorScheme
 import de.markusressel.kodehighlighter.core.rule.LanguageRule

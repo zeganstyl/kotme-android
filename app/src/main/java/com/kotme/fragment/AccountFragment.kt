@@ -7,19 +7,21 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
+import androidx.navigation.fragment.findNavController
 import com.kotme.KotmeRepository
-import com.kotme.databinding.UserProfileBinding
+import com.kotme.R
+import com.kotme.databinding.AccountBinding
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class UserProfileFragment : Fragment() {
+class AccountFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ) = UserProfileBinding.inflate(inflater, container, false).apply {
-        val viewModel by viewModels<UserProfileViewModel>()
+    ) = AccountBinding.inflate(inflater, container, false).apply {
+        val viewModel by viewModels<AccountViewModel>()
 
         nameSwitcher.setOnClickListener { nameSwitcher.showNext() }
 
@@ -27,10 +29,14 @@ class UserProfileFragment : Fragment() {
             nameView.text = it?.name
             name.setText(it?.name)
         }
+
+        login.setOnClickListener {
+            findNavController().navigate(R.id.loginFragment)
+        }
     }.root
 }
 
 @HiltViewModel
-class UserProfileViewModel @Inject constructor(val repo: KotmeRepository): ViewModel() {
+class AccountViewModel @Inject constructor(val repo: KotmeRepository): ViewModel() {
     val user = repo.userDao.getFlow().asLiveData()
 }

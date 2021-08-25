@@ -8,7 +8,8 @@
     android:background="@drawable/wooden_box"
     android:gravity="center|center_horizontal"
     android:orientation="vertical"
-    android:padding="40dp">
+    android:padding="40dp"
+    tools:context=".fragment.SignUpFragment">
 
     <com.kotme.view.OutlineTextView
         android:id="@+id/text5"
@@ -49,7 +50,9 @@
         android:inputType="textPersonName"
         android:minHeight="48dp"
         android:padding="5dp"
-        android:textSize="18sp" />
+        android:textColor="#000000"
+        android:textSize="18sp"
+        tools:text="Name" />
 
     <EditText
         android:id="@+id/login"
@@ -57,14 +60,16 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
+        android:autofillHints="username"
         android:background="#FFFFFF"
         android:ems="10"
         android:hint="@string/login"
         android:inputType="textPersonName"
         android:minHeight="48dp"
         android:padding="5dp"
+        android:textColor="#000000"
         android:textSize="18sp"
-        android:autofillHints="username" />
+        tools:text="Login" />
 
     <EditText
         android:id="@+id/password"
@@ -72,13 +77,15 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
+        android:autofillHints="password"
         android:background="#FFFFFF"
         android:ems="10"
         android:hint="@string/password"
         android:inputType="textPassword"
         android:minHeight="48dp"
         android:padding="5dp"
-        android:autofillHints="password" />
+        android:textColor="#000000"
+        tools:text="pass" />
 
     <EditText
         android:id="@+id/retypePassword"
@@ -86,13 +93,15 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
+        android:autofillHints="password"
         android:background="#FFFFFF"
         android:ems="10"
         android:hint="@string/retypePassword"
         android:inputType="textPassword"
         android:minHeight="48dp"
         android:padding="5dp"
-        android:autofillHints="password" />
+        android:textColor="#000000"
+        tools:text="pass" />
 
     <Button
         android:id="@+id/accept"

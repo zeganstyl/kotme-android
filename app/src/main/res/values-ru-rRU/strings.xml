@@ -34,4 +34,9 @@
     <string name="retypePassword">Повторите пароль</string>
     <string name="name">Имя</string>
     <string name="save">Сохранить</string>
+    <string name="awards">Награды</string>
+    <string name="account">Аккаунт</string>
+    <string name="excelentWork">Отличная работа!</string>
+    <string name="signin">Войти</string>
+    <string name="signup">Регистрация</string>
 </resources>

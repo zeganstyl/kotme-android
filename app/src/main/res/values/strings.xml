@@ -20,6 +20,8 @@
     <string name="menu">Menu</string>
     <string name="map">Map</string>
     <string name="achievements">Achievements</string>
+    <string name="awards">Awards</string>
+    <string name="account">Account</string>
     <string name="code">Code</string>
     <string name="user">User</string>
     <string name="login">Login</string>
@@ -34,7 +36,14 @@
     <string name="retypePassword">Retype password</string>
     <string name="name">Name</string>
     <string name="save">Save</string>
-    <string name="excelentWork">Отличная работа!</string>
-    <string name="signin">Войти</string>
-    <string name="signup">Регистрация</string>
+    <string name="excelentWork">Excelent Work!</string>
+    <string name="signin">Sign In</string>
+    <string name="signup">Sign Up</string>
+
+    <string name="done">Выполнено</string>
+    <string name="not_checked">Не проверено</string>
+    <string name="server_error">Ошибка сервера</string>
+    <string name="compile_errors">Ошибки компиляции</string>
+    <string name="incorrect_result">Не верный результат</string>
+    <string name="runtime_errors">Ошибки выполнения кода</string>
 </resources>

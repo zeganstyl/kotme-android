@@ -1,7 +1,6 @@
 package com.kotme
 
 import androidx.lifecycle.MutableLiveData
-import com.kotme.api.KotmeApi
 import com.kotme.common.CodeCheckResult
 import com.kotme.data.*
 import kotlinx.coroutines.CoroutineScope
@@ -72,7 +71,8 @@ class KotmeRepository @Inject constructor(
     }
 
     suspend fun checkCode(exercise: Exercise): CodeCheckResult =
-        kotmeApi.checkCode(exercise.id, exercise.userCode.also { println(it) }).also {
+        kotmeApi.checkCodeAnonym(exercise.id, exercise.userCode).also {
+            println(it)
             exerciseDao.setResult(exercise.id, it.status, it.errors, it.consoleLog)
         }
 }

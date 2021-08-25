@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:layout_gravity="center"
     android:background="@drawable/wooden_box"
-    android:gravity="center|center_horizontal">
+    android:gravity="center|center_horizontal"
+    tools:context=".fragment.LoginFragment">
 
     <com.kotme.view.OutlineTextView
         android:id="@+id/text5"
@@ -32,14 +34,16 @@
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
         android:layout_marginBottom="20dp"
+        android:autofillHints="username"
         android:background="#FFFFFF"
         android:ems="10"
         android:hint="@string/login"
         android:inputType="textPersonName"
         android:minHeight="48dp"
         android:padding="5dp"
+        android:textColor="#000000"
         android:textSize="18sp"
-        android:autofillHints="username" />
+        tools:text="Login" />
 
     <EditText
         android:id="@+id/password"
@@ -48,13 +52,15 @@
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
         android:layout_marginBottom="20dp"
+        android:autofillHints="password"
         android:background="#FFFFFF"
         android:ems="10"
         android:hint="@string/password"
         android:inputType="textPassword"
         android:minHeight="48dp"
         android:padding="5dp"
-        android:autofillHints="password"/>
+        android:textColor="#000000"
+        tools:text="Pass" />
 
     <TextView
         android:id="@+id/message"

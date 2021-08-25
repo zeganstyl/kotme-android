@@ -2,12 +2,14 @@ package com.kotme.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kotme.KotmeRepository
+import com.kotme.common.prepare
 import com.kotme.databinding.CharacterDialogBinding
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -30,6 +32,11 @@ class CharacterDialog: DialogFragment() {
             dialog?.hide()
         }
     }.root
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        prepare()
+    }
 }
 
 @HiltViewModel

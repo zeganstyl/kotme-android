@@ -12,8 +12,8 @@
         android:title="@string/code" />
     <item
         android:id="@+id/achievementsFragment"
-        android:title="@string/achievements" />
+        android:title="@string/awards" />
     <item
-        android:id="@+id/login"
-        android:title="@string/user" />
+        android:id="@+id/accountFragment"
+        android:title="@string/account" />
 </menu>

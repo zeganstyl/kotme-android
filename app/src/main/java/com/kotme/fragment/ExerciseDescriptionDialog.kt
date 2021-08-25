@@ -12,13 +12,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kotme.KotmeRepository
 import com.kotme.R
+import com.kotme.common.prepare
 import com.kotme.databinding.ExerciseDescriptionBinding
-import com.kotme.markdown.Highlighter
+import com.kotme.highlighting.Highlighter
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class ExerciseDescriptionDialog : DialogFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
         ExerciseDescriptionBinding.inflate(inflater, container, false).also { binding ->
@@ -34,6 +36,11 @@ class ExerciseDescriptionDialog : DialogFragment() {
 
             binding.next.setOnClickListener { dismiss() }
         }.root
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        prepare()
+    }
 }
 
 @HiltViewModel

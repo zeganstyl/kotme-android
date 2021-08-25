@@ -9,8 +9,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
+import androidx.security.crypto.EncryptedSharedPreferences
 import com.kotme.R
-import com.kotme.api.KotmeApi
+import com.kotme.KotmeApi
 import com.kotme.databinding.SignUpBinding
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -36,13 +37,17 @@ class SignUpFragment: Fragment() {
         }
 
         accept.setOnClickListener {
-            if (password.text == retypePassword.text) {
+            if (password.text.toString() == retypePassword.text.toString()) {
                 viewModel.signUp(
                     name.text.toString(),
                     login.text.toString(),
                     password.text.toString()
                 )
             }
+        }
+
+        back.setOnClickListener {
+            findNavController().popBackStack()
         }
     }.root
 }
@@ -53,14 +58,18 @@ class SignUpViewModel @Inject constructor(val api: KotmeApi): ViewModel() {
 
     fun signUp(name: String, login: String, password: String) {
         viewModelScope.launch {
-            val request = api.signUp(name, login, password)
-            when (request.call.response.status) {
-                HttpStatusCode.BadRequest -> {
-                    status.value = request.call.response.content.readUTF8Line(256) ?: ""
+            try {
+                val request = api.signUp(name, login, password)
+                when (request.call.response.status) {
+                    HttpStatusCode.BadRequest -> {
+                        status.value = request.call.response.content.readUTF8Line(256) ?: ""
+                    }
+                    HttpStatusCode.OK -> {
+                        status.value = "OK"
+                    }
                 }
-                HttpStatusCode.OK -> {
-                    status.value = "OK"
-                }
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
         }
     }

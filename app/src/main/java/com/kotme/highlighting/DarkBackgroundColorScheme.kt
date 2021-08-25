@@ -1,8 +1,7 @@
-package com.kotme.markdown
+package com.kotme.highlighting
 
 import android.graphics.Color
 import android.text.style.ForegroundColorSpan
-import com.kotme.markdown.FunctionDeclarationRule
 import de.markusressel.kodehighlighter.core.StyleFactory
 import de.markusressel.kodehighlighter.core.colorscheme.ColorScheme
 import de.markusressel.kodehighlighter.core.rule.LanguageRule

@@ -16,8 +16,7 @@ import com.kotme.KotmeRepository
 import com.kotme.R
 import com.kotme.common.CodeCheckResultStatus
 import com.kotme.databinding.ExerciseBinding
-import com.kotme.markdown.Highlighter
-import com.kotme.common.show
+import com.kotme.highlighting.Highlighter
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
@@ -47,15 +46,15 @@ class ExerciseFragment : Fragment() {
         }
 
         description.setOnClickListener {
-            ExerciseDescriptionDialog().show()
+            ExerciseDescriptionDialog().show(childFragmentManager, null)
         }
 
         check.setOnClickListener { viewModel.checkCode() }
 
         results.setOnClickListener {
             viewModel.exercise.value?.also {
-                if (it.resultStatus == CodeCheckResultStatus.TestsSuccess) {
-                    CongratulationsDialog().show()
+                if (it.resultStatus == CodeCheckResultStatus.Success) {
+                    CongratulationsDialog().show(childFragmentManager, null)
                 } else if (it.resultStatus != CodeCheckResultStatus.NoStatus) {
                     findNavController().navigate(R.id.resultsFragment)
                 }
@@ -64,13 +63,25 @@ class ExerciseFragment : Fragment() {
 
         viewModel.exercise.observe(viewLifecycleOwner) {
             if (it != null) {
-                results.text = it.resultStatus.toString()
-                if (it.userCode.isNotEmpty()) {
-                    if (it.userCode != code.text.toString()) {
-                        viewModel.highlight(code, it.userCode)
-                    }
+                results.text = getString(when (it.resultStatus) {
+                    CodeCheckResultStatus.Success -> R.string.done
+                    CodeCheckResultStatus.NoStatus -> R.string.not_checked
+                    CodeCheckResultStatus.ServerError -> R.string.server_error
+                    CodeCheckResultStatus.CompileErrors -> R.string.compile_errors
+                    CodeCheckResultStatus.Incorrect -> R.string.incorrect_result
+                    CodeCheckResultStatus.RuntimeErrors -> R.string.runtime_errors
+                })
+
+                if (it.resultStatus == CodeCheckResultStatus.Success) {
+                    CongratulationsDialog().show(childFragmentManager, null)
                 } else {
-                    viewModel.highlight(code, it.initialCode)
+                    if (it.userCode.isNotEmpty()) {
+                        if (it.userCode != code.text.toString()) {
+                            viewModel.highlight(code, it.userCode)
+                        }
+                    } else {
+                        viewModel.highlight(code, it.initialCode)
+                    }
                 }
             }
         }
@@ -92,7 +103,13 @@ class ExerciseViewModel @Inject constructor(
 
     fun checkCode() {
         exercise.value?.also {
-            viewModelScope.launch { repo.checkCode(it) }
+            viewModelScope.launch {
+                try {
+                    repo.checkCode(it)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
         }
     }
 
