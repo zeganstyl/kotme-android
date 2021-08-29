@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.kotme.KotmeRepository
 import com.kotme.common.prepare
 import com.kotme.databinding.CharacterDialogBinding
@@ -41,5 +40,5 @@ class CharacterDialog: DialogFragment() {
 
 @HiltViewModel
 class CharacterDialogViewModel @Inject constructor(val repo: KotmeRepository) : ViewModel() {
-    val currentProgressExercise = repo.currentProgressExerciseLiveData(viewModelScope)
+    val currentProgressExercise = repo.currentProgressExercise()
 }

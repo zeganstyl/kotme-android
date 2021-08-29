@@ -14,7 +14,7 @@ class SeedDatabaseWorker(
         String(applicationContext.assets.open(file).readBytes())
 
     override suspend fun doWork(): Result = withContext(Dispatchers.IO) {
-        val database = AppDatabase.getInstance(applicationContext)
+        val database = KotmeDatabase.getInstance(applicationContext)
         database.userDao().insert(User("", 0, id = User.ID))
         database.exerciseDao().insert(
             Exercise(

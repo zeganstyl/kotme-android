@@ -93,7 +93,7 @@ class ExerciseViewModel @Inject constructor(
     val highlighter: Highlighter,
     val repo: KotmeRepository
 ) : ViewModel() {
-    val exercise = repo.currentExerciseLiveData(viewModelScope)
+    val exercise = repo.currentExerciseLiveData()
 
     suspend fun saveCode(code: String) {
         exercise.value?.also {

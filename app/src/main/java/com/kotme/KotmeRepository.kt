@@ -1,6 +1,9 @@
 package com.kotme
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
+import androidx.lifecycle.asLiveData
 import com.kotme.common.CodeCheckResult
 import com.kotme.data.*
 import kotlinx.coroutines.CoroutineScope
@@ -18,20 +21,10 @@ class KotmeRepository @Inject constructor(
 ) {
     fun userProgress() = userDao.getProgressFlow()
 
-    fun currentProgressExerciseLiveData(scope: CoroutineScope): MutableLiveData<Exercise?> {
-        val liveData = MutableLiveData<Exercise?>()
-        var job: Job? = null
-        scope.launch {
-            userDao.getProgressFlow().collect { progress ->
-                job?.cancel()
-                job = scope.launch {
-                    exerciseDao.get((progress ?: -2) + 1).collect {
-                        liveData.value = it
-                    }
-                }
-            }
-        }
-        return liveData
+    fun currentProgressExercise(
+        progressLiveData: LiveData<Int?> = userProgress().asLiveData()
+    ): LiveData<Exercise?> = Transformations.switchMap(progressLiveData) {
+        if (it != null) exerciseDao.get(it + 1).asLiveData() else null
     }
 
     suspend fun getUpdates(from: Long) {
@@ -50,20 +43,10 @@ class KotmeRepository @Inject constructor(
     fun setCurrentExercise(number: Int) {
     }
 
-    fun currentExerciseLiveData(scope: CoroutineScope): MutableLiveData<Exercise?> {
-        val liveData = MutableLiveData<Exercise?>()
-        var job: Job? = null
-        scope.launch {
-            userDao.currentExerciseFlow().collect {
-                job?.cancel()
-                job = scope.launch {
-                    exerciseDao.get(it ?: -1).collect {
-                        liveData.value = it
-                    }
-                }
-            }
-        }
-        return liveData
+    fun currentExerciseLiveData(
+        currentExerciseLiveData: LiveData<Int?> = userDao.currentExerciseFlow().asLiveData()
+    ): LiveData<Exercise?> = Transformations.switchMap(currentExerciseLiveData) {
+        if (it != null) exerciseDao.get(it).asLiveData() else null
     }
 
     suspend fun saveCode(id: Int, code: String) {
@@ -72,7 +55,6 @@ class KotmeRepository @Inject constructor(
 
     suspend fun checkCode(exercise: Exercise): CodeCheckResult =
         kotmeApi.checkCodeAnonym(exercise.id, exercise.userCode).also {
-            println(it)
             exerciseDao.setResult(exercise.id, it.status, it.errors, it.consoleLog)
         }
 }

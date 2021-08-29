@@ -47,5 +47,5 @@ class LessonFragment: Fragment() {
 
 @HiltViewModel
 class LessonViewModel @Inject constructor(repo: KotmeRepository) : ViewModel() {
-    val exercise = repo.currentExerciseLiveData(viewModelScope)
+    val exercise = repo.currentExerciseLiveData()
 }

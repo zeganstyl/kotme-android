@@ -48,7 +48,7 @@ class ExerciseDescriptionViewModel @Inject constructor(
     val highlighter: Highlighter,
     repo: KotmeRepository
 ) : ViewModel() {
-    val exercise = repo.currentExerciseLiveData(viewModelScope)
+    val exercise = repo.currentExerciseLiveData()
 
     fun highlight(text: Spannable) {
         viewModelScope.launch { highlighter.highlight(text) }

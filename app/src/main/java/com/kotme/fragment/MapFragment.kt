@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import com.kotme.KotmeRepository
 import com.kotme.R
@@ -73,5 +72,5 @@ class MapFragment : Fragment() {
 
 @HiltViewModel
 class MapViewModel @Inject constructor(val repo: KotmeRepository) : ViewModel() {
-    val currentProgressExercise = repo.currentProgressExerciseLiveData(viewModelScope)
+    val currentProgressExercise = repo.currentProgressExercise()
 }

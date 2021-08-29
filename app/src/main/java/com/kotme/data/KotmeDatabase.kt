@@ -15,15 +15,15 @@ import javax.inject.Singleton
 
 @Database(entities = [Exercise::class, Achievement::class, User::class], version = 1)
 @TypeConverters(Converters::class)
-abstract class AppDatabase : RoomDatabase() {
+abstract class KotmeDatabase : RoomDatabase() {
     abstract fun exerciseDao(): ExerciseDao
     abstract fun achievementDao(): AchievementDao
     abstract fun userDao(): UserDao
 
     companion object {
-        @Volatile private var instance: AppDatabase? = null
+        @Volatile private var instance: KotmeDatabase? = null
 
-        fun getInstance(context: Context): AppDatabase {
+        fun getInstance(context: Context): KotmeDatabase {
             return instance ?: synchronized(this) {
                 instance ?: buildDatabase(context).also { instance = it }
             }
@@ -31,9 +31,9 @@ abstract class AppDatabase : RoomDatabase() {
 
         // Create and pre-populate the database. See this article for more details:
         // https://medium.com/google-developers/7-pro-tips-for-room-fbadea4bfbd1#4785
-        private fun buildDatabase(context: Context): AppDatabase {
-            context.deleteDatabase(DATABASE_NAME)
-            return Room.databaseBuilder(context, AppDatabase::class.java, DATABASE_NAME)
+        private fun buildDatabase(context: Context): KotmeDatabase {
+            //context.deleteDatabase(DATABASE_NAME)
+            return Room.databaseBuilder(context, KotmeDatabase::class.java, DATABASE_NAME)
                 .addCallback(
                     object : RoomDatabase.Callback() {
                         override fun onCreate(db: SupportSQLiteDatabase) {
@@ -54,18 +54,18 @@ abstract class AppDatabase : RoomDatabase() {
 class DatabaseModule {
     @Singleton
     @Provides
-    fun appDatabase(@ApplicationContext context: Context): AppDatabase =
-        AppDatabase.getInstance(context)
+    fun appDatabase(@ApplicationContext context: Context): KotmeDatabase =
+        KotmeDatabase.getInstance(context)
 
     @Provides
-    fun exerciseDao(db: AppDatabase): ExerciseDao = db.exerciseDao()
+    fun exerciseDao(db: KotmeDatabase): ExerciseDao = db.exerciseDao()
 
     @Provides
-    fun achievementDao(db: AppDatabase): AchievementDao = db.achievementDao()
+    fun achievementDao(db: KotmeDatabase): AchievementDao = db.achievementDao()
 
     @Singleton
     @Provides
-    fun userDao(db: AppDatabase): UserDao = db.userDao()
+    fun userDao(db: KotmeDatabase): UserDao = db.userDao()
 }
 
 class Converters {
